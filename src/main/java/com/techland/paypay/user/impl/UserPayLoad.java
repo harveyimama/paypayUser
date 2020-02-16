@@ -1,11 +1,14 @@
 package com.techland.paypay.user.impl;
 
+import java.sql.Timestamp;
+
 import com.techland.paypay.user.contracts.UserEvent;
 
 public class UserPayLoad<T extends UserEvent> {
 	private T userEvent;
 	private String eventId;
 	private String userEventId;
+	private  Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 	
 	
 	public  T getUserEvent() {
@@ -26,6 +29,10 @@ public class UserPayLoad<T extends UserEvent> {
 	public void setUserEventId(String userEventId) {
 		this.userEventId = userEventId;
 	}
+	public Timestamp getTimestamp() {
+		return timestamp;
+	}
+	
 	
 	
 	

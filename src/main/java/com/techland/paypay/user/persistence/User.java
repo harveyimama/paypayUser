@@ -8,12 +8,6 @@ import com.techland.paypay.user.impl.AddUserCommand;
 @Entity
 public class User {
 	
-	private AddUserCommand userCommand;
-	
-	User(AddUserCommand userCommand)
-	{
-		this.userCommand = userCommand;
-	}
 	
 	@Id
 	private String id;
@@ -25,22 +19,7 @@ public class User {
 	private  String role;
 	private  String status;
 	
-	public void setCommand(AddUserCommand userCommand)
-	{
-		this.setEmail(userCommand.getEmail());
-		this.setFullname(userCommand.getFullname());
-		this.setId(userCommand.getId());
-		this.setPassword(userCommand.getPassword());
-		this.setRole(userCommand.getRole());
-		this.setUsername(userCommand.getUsername());
-		this.setUserType(userCommand.getUserType());
 		
-		
-		
-	}
-	
-	
-	
 	public String getId() {
 		return id;
 	}

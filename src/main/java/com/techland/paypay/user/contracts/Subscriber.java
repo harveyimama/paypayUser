@@ -1,6 +1,6 @@
 package com.techland.paypay.user.contracts;
 
-import com.techland.paypay.user.events.UserAddedEvent;
+import com.techland.paypay.user.impl.UserState;
 
 /**
  * @author Harvey Imama
@@ -9,14 +9,12 @@ import com.techland.paypay.user.events.UserAddedEvent;
 
 public interface Subscriber {
 	
-	/**
-	 * 
-	 *
-	 */
-	void process(String topic, UserAddedEvent user);
-	
 	boolean isState();
+		
+	public <T extends UserEvent> void process( T userEvent);
 	
+	public <T extends UserState> void process( T userState);
+
 
 
 }

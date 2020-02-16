@@ -1,13 +1,17 @@
 package com.techland.paypay.user.events;
 
+import java.io.Serializable;
+
 import org.hibernate.annotations.Immutable;
 
 import com.techland.paypay.user.contracts.UserEvent;
 import com.techland.paypay.user.persistence.User;
 
 @Immutable
-public class UserAddedEvent implements UserEvent {
+public class UserAddedEvent implements UserEvent,Serializable  {
 	
+
+private static final long serialVersionUID = 1L;
 private final String userType;
 private final String id;
 private final String username;
@@ -16,7 +20,6 @@ private final String email;
 private final String fullname;
 private final String role;
 private final String status;
-
 
 
 
