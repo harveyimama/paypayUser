@@ -7,24 +7,25 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.MimeTypeUtils;
 
 import com.techland.paypay.user.config.Settings;
+import com.techland.paypay.user.contracts.UserEvent;
 import com.techland.paypay.user.contracts.UserMessage;
-import com.techland.paypay.user.impl.UserEvent;
+import com.techland.paypay.user.impl.UserPayLoad;
 
 @Service
-public class AddUserMessenger {
+public class UserMessenger<T extends UserEvent> {
 	private final UserMessage userMessage;
 	
-	public AddUserMessenger(UserMessage userMessage)
+	public UserMessenger(UserMessage userMessage)
 	{
 		this.userMessage = userMessage;
 	}
 	
-    public void sendMessage(final UserEvent user) {
+    public void sendMessage(final UserPayLoad<T> payload) {
 
-        MessageChannel messageChannel = userMessage.outboundAddUser();
+        MessageChannel messageChannel = userMessage.outbound();
       
         messageChannel.send(MessageBuilder
-                .withPayload(user)        
+                .withPayload(payload)     
                 .setHeader(MessageHeaders.CONTENT_TYPE, MimeTypeUtils.APPLICATION_JSON)
                 .build(),Settings.ASYNC_WAIT_TIME);
 

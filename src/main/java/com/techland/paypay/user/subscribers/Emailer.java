@@ -1,13 +1,13 @@
 package com.techland.paypay.user.subscribers;
 
 import com.techland.paypay.user.contracts.Subscriber;
-import com.techland.paypay.user.contracts.UserType;
+import com.techland.paypay.user.contracts.User;
+import com.techland.paypay.user.events.UserAddedEvent;
 import com.techland.paypay.user.helper.Constants;
-import com.techland.paypay.user.impl.UserEvent;
 import com.techland.paypay.user.response.ServiceResponse;
 import com.techland.paypay.user.services.SendEmailMessenger;
-import com.techland.paypay.user.usertypes.UserTypeFactory;
-import com.techland.paypay.user.usertypes.UserTypes;
+import com.techland.paypay.user.users.UserFactory;
+import com.techland.paypay.user.users.UserTypes;
 
 public final class Emailer implements Subscriber {
 	private SendEmailMessenger sendEmailMessenger;
@@ -21,14 +21,14 @@ public final class Emailer implements Subscriber {
 	
 
 	@Override
-	public void process(String topic, UserEvent user) {
+	public void process(String topic, UserAddedEvent user) {
 		
 		if (topic.equals(Constants.ADD_USER)) {
 			
 			resp  = sendVericiationEmail();
 			if(resp.isSuccess())
 			{
-			UserType userType = UserTypeFactory.getInstance(UserTypes.valueOf(user.getUserType()));
+			User userType = UserFactory.getInstance(UserTypes.valueOf(user.getUserType()));
 			userType.updateAccountStatus();
 			sendEmailMessenger.sendMessage(user);	
 			}

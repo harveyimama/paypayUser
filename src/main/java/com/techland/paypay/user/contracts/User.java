@@ -1,8 +1,8 @@
 package com.techland.paypay.user.contracts;
 
-import com.techland.paypay.user.impl.UserCommand;
+import com.techland.paypay.user.impl.AddUserCommand;
 
-public interface UserType {
+public interface User {
 	
 	//read
 	default  void login(String username,String password)
@@ -20,7 +20,7 @@ public interface UserType {
 	default void verifyEmail(String id)
 	{}
 	
-	void openAccount(UserCommand user);
+	void openAccount(AddUserCommand user,String eventId);
 
 	void updateAccount();
 	

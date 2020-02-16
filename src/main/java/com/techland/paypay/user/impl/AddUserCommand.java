@@ -1,6 +1,6 @@
 package com.techland.paypay.user.impl;
 
-public class UserCommand {
+public class AddUserCommand {
 	
 	private String id;
 	private String username;

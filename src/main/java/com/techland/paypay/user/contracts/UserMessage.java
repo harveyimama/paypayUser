@@ -9,21 +9,12 @@ import com.techland.paypay.user.helper.Constants;
 public interface UserMessage {
 		
 	
-    @Input(Constants.ADD_USER)
-    SubscribableChannel inboundAddUser();
+    @Input(Constants.USERIN)
+    SubscribableChannel inbound();
 
-    @Output(Constants.ADD_USER)
-    MessageChannel outboundAddUser();
+    @Output(Constants.USEROUT)
+    MessageChannel outbound();
     
-    @Input(Constants.SEND_EMAIl)
-    SubscribableChannel inboundSendEmail();
-
-    @Output(Constants.SEND_EMAIl)
-    MessageChannel outboundSendEmail();
-    
-    @Output(Constants.SEND_MONITOR)
-    MessageChannel outboundSendMonitor();
-    
-   
+  
 
 }

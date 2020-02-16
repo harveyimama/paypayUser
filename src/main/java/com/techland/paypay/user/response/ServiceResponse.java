@@ -5,6 +5,7 @@ public class ServiceResponse {
 	private boolean success;
 	private int responseCode;
 	private String messaged;
+	private String eventId;
 	
 	
 	public boolean isSuccess() {
@@ -24,6 +25,12 @@ public class ServiceResponse {
 	}
 	public void setMessaged(String messaged) {
 		this.messaged = messaged;
+	}
+	public String getEventId() {
+		return eventId;
+	}
+	public void setEventId(String eventId) {
+		this.eventId = eventId;
 	}
 	
 	

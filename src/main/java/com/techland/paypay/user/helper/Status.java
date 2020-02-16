@@ -1,7 +1,19 @@
 package com.techland.paypay.user.helper;
 
-public final class Status {
+public enum Status {
 	
-	public static final String PENDING = "Pending";
+	ACTIVE("Active"),EMAILNOTVERIFIED("Email-Not-Veirfied"),LOCKED("Locked"),DELETED("deleted");
+	
+	private String name ;
 
+	private Status(String name) {
+		this.name = name;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+		
+	
 }

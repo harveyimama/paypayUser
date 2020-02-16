@@ -1,16 +1,16 @@
-package com.techland.paypay.user.entity;
+package com.techland.paypay.user.persistence;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-import com.techland.paypay.user.impl.UserCommand;
+import com.techland.paypay.user.impl.AddUserCommand;
 
 @Entity
 public class User {
 	
-	private UserCommand userCommand;
+	private AddUserCommand userCommand;
 	
-	User(UserCommand userCommand)
+	User(AddUserCommand userCommand)
 	{
 		this.userCommand = userCommand;
 	}
@@ -25,7 +25,7 @@ public class User {
 	private  String role;
 	private  String status;
 	
-	public void setCommand(UserCommand userCommand)
+	public void setCommand(AddUserCommand userCommand)
 	{
 		this.setEmail(userCommand.getEmail());
 		this.setFullname(userCommand.getFullname());
