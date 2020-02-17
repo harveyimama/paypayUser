@@ -1,10 +1,16 @@
 package com.techland.paypay.user.impl;
 
+import java.io.Serializable;
+
 import com.techland.paypay.user.events.UserAddedEvent;
 import com.techland.paypay.user.helper.Status;
 
-public class UserState {
+public class UserState implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String id;
 	private  String userType;
 	private  String username;

@@ -11,5 +11,17 @@ spring:
         user-out:
           destination: user
           contentType: application/json
-          
+   data:
+      cassandra:
+         contact-points: 127.0.0.1
+         username: harvey
+         password: harvey
+   jpa:
+      hibernate:
+         ddl-auto: update
+   datasource: 
+      url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/db_example
+      username: harvey
+      password: harvey
+         
    
