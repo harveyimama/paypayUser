@@ -9,15 +9,13 @@ import com.techland.paypay.user.util.Logger;
 
 public class SubscriberFactory {
 	private static Emailer emailer;
-	private static Logger logger;
 	private static UserPersistance  userPersistance ;
 	
 	private static  List<Subscriber> list ;
 	
-	private SubscriberFactory(Emailer emailers,Logger loggers, UserPersistance  userPersistances)
+	private SubscriberFactory(Emailer emailers ,UserPersistance  userPersistances)
 	{
 		emailer = emailers;
-		logger = loggers;
 		userPersistance = userPersistances;
 	}
 	
@@ -29,8 +27,6 @@ public class SubscriberFactory {
 			list.add(userPersistance);
 		}
 		
-		list.add(logger);
-				
 		return list;
 	}
 

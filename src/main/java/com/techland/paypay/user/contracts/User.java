@@ -1,16 +1,19 @@
 package com.techland.paypay.user.contracts;
 
 import com.techland.paypay.user.impl.AddUserCommand;
+import com.techland.paypay.user.impl.UserState;
 
 public interface User {
 	
 	//read
-	default  void login(String username,String password)
-	{}
-	
-	default void getAccountdetails(String id)
+	default  UserState login(String username,String password)
 	{
-		
+		return null;
+	}
+	
+	default UserState getAccountdetails(String id)
+	{
+		return null;
 	}
 	
 	//write

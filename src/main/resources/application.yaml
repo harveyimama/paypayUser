@@ -11,3 +11,5 @@ spring:
         user-out:
           destination: user
           contentType: application/json
+          
+   

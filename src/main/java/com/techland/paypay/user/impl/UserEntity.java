@@ -10,8 +10,8 @@ import com.techland.paypay.user.contracts.UserEvent;
 public class UserEntity {
 
 	public UserState getState(String id) {
-		String checkpoint = getCheckpoint(id);
-		List<String> events = getEvents(checkpoint);
+		String snapshot = getSnapshot(id);
+		List<String> events = getEvents(snapshot);
 		UserState userState = new UserState();
 		events.stream().forEach(event -> {
 			userState.addEvent(deSerializer(event));
@@ -19,7 +19,7 @@ public class UserEntity {
 		return userState;
 	}
 
-	private String getCheckpoint(String id) {
+	private String getSnapshot(String id) {
 		return "checkpoint";
 	}
 
@@ -30,11 +30,11 @@ public class UserEntity {
 	public <T extends UserEvent> void addEvent(String id,T event,String EventId) {
 		//TODO persist Event
 		
-		String checkpoint = getCheckpoint(id);
-		List<String> events = getEvents(checkpoint);
+		String snapshot = getSnapshot(id);
+		List<String> events = getEvents(snapshot);
 		if(events.stream().count() >= Settings.CHECKPOINT_LIMIT)
 		{
-			//persist new checkpoint
+			//TODO persist new checkpoint
 		}
 	}
 

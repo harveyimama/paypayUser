@@ -1,20 +1,15 @@
 package com.techland.paypay.user.users;
 
-import java.util.UUID;
+
 import java.util.concurrent.ExecutorService;
 
-import com.techland.paypay.user.config.PayPayLogger;
 import com.techland.paypay.user.config.PayPayThread;
-import com.techland.paypay.user.config.UserRepository;
 import com.techland.paypay.user.contracts.User;
-import com.techland.paypay.user.contracts.UserEvent;
 import com.techland.paypay.user.events.UserAddedEvent;
 import com.techland.paypay.user.helper.Constants;
 import com.techland.paypay.user.helper.Status;
 import com.techland.paypay.user.impl.AddUserCommand;
-import com.techland.paypay.user.impl.UserState;
 import com.techland.paypay.user.impl.UserPayLoad;
-import com.techland.paypay.user.persistence.User;
 import com.techland.paypay.user.services.UserMessenger;
 import com.techland.paypay.user.util.LogFeed;
 import com.techland.paypay.user.util.Logger;
@@ -31,8 +26,6 @@ public final class Customer implements User {
 
 		this.addUserMessenger = addUserMessenger;
 		this.userAddedPayload = userAddedPayload;
-	
-	
 	}
 
 	

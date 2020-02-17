@@ -65,21 +65,8 @@ public class PayPayUserController {
 	
 	@PostMapping(path = "/api/user/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public UserAddedEvent getUserById(@Param(value = "id") final String id) {
-		
-		KafkaStreams ks = null;
-	
-		
-	    ReadOnlyKeyValueStore<String, Double> averageStore = ks
-	            .store("user",
-	                    QueryableStoreTypes.<String, Double>keyValueStore());
-	    
-	
-		
-		 final ReadOnlyKeyValueStore<String, UserAddedEvent> userStore = interactiveQueryService.getQueryableStore(Settings.STORE,
-		 QueryableStoreTypes.<String, UserAddedEvent>keyValueStore());
 		 
-		 
-		return userStore.get(id);
+		return null;
 		 
 
 	}
