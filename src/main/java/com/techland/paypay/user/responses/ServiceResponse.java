@@ -1,4 +1,4 @@
-package com.techland.paypay.user.response;
+package com.techland.paypay.user.responses;
 
 public class ServiceResponse {
 	

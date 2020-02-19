@@ -4,7 +4,7 @@ import com.techland.paypay.user.contracts.Subscriber;
 import com.techland.paypay.user.contracts.UserEvent;
 import com.techland.paypay.user.events.UserAddedEvent;
 import com.techland.paypay.user.impl.UserState;
-import com.techland.paypay.user.response.ServiceResponse;
+import com.techland.paypay.user.responses.ServiceResponse;
 
 
 public final class Emailer implements Subscriber {

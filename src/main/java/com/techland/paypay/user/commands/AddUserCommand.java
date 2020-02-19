@@ -1,4 +1,4 @@
-package com.techland.paypay.user.impl;
+package com.techland.paypay.user.commands;
 
 public class AddUserCommand {
 	

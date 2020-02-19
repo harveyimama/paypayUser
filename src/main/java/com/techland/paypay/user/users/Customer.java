@@ -3,12 +3,12 @@ package com.techland.paypay.user.users;
 
 import java.util.concurrent.ExecutorService;
 
+import com.techland.paypay.user.commands.AddUserCommand;
 import com.techland.paypay.user.config.PayPayThread;
 import com.techland.paypay.user.contracts.User;
 import com.techland.paypay.user.events.UserAddedEvent;
 import com.techland.paypay.user.helper.Constants;
 import com.techland.paypay.user.helper.Status;
-import com.techland.paypay.user.impl.AddUserCommand;
 import com.techland.paypay.user.impl.UserPayLoad;
 import com.techland.paypay.user.services.UserMessenger;
 import com.techland.paypay.user.util.LogFeed;
@@ -36,7 +36,7 @@ public final class Customer implements User {
 	}
 
 	@Override
-	public void openAccount(AddUserCommand user,String id) {
+	public void openAccount(AddUserCommand user) {
 
 		try {
 			
@@ -46,7 +46,7 @@ public final class Customer implements User {
 					user.getPassword(), user.getEmail(), user.getFullname(), user.getRole(), Status.EMAILNOTVERIFIED.getName());
 
 			
-			userAddedPayload.setEventId(id);
+	
 			userAddedPayload.setUserEvent(event);
 			userAddedPayload.setUserEventId(user.getId());
 			

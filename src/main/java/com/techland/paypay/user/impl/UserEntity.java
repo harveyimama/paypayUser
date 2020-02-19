@@ -7,10 +7,13 @@ import java.util.Optional;
 
 import com.techland.paypay.user.config.Settings;
 import com.techland.paypay.user.contracts.UserEvent;
+import com.techland.paypay.user.events.UserAddedEvent;
 import com.techland.paypay.user.persistence.Journal;
 import com.techland.paypay.user.persistence.JournalRepository;
 import com.techland.paypay.user.persistence.Snapshot;
 import com.techland.paypay.user.persistence.SnapshotRepository;
+import com.techland.paypay.user.persistence.User;
+import com.techland.paypay.user.persistence.UserRepository;
 
 public class UserEntity {
 	
@@ -18,43 +21,52 @@ public class UserEntity {
 	private JournalRepository journalRepository;
 	private Snapshot snapshot;
 	private SnapshotRepository snapshotRepository;
+	private UserRepository userRepo;
 	
-	public UserEntity(Journal journal,JournalRepository journalRepository,SnapshotRepository snapshotRepository,Snapshot snapshot)
+	public UserEntity(Journal journal,JournalRepository journalRepository,SnapshotRepository snapshotRepository,Snapshot snapshot,
+			 UserRepository userRep)
 	{
 		this.journal = journal;
 		this.journalRepository = journalRepository;
 		this.snapshotRepository= snapshotRepository;
 		this.snapshot= snapshot;
+		this.userRepo = userRep;
 	}
 
-	public UserState getState(String userId) {
+	public UserState getState(final String userId) {
 		snapshot = getSnapshot(userId).get();
-		List<String> events = getEvents(snapshot.getJournalId());
+		List<Journal> events = getEvents(snapshot.getJournalId(),userId);
 		UserState userState = new UserState();
 		events.stream().forEach(event -> {
-			userState.addEvent(deSerializer(event));
+			userState.addEvent((UserAddedEvent) event.getUserEvent());
 		});
 		return userState;
 	}
+	
+	public User login(final String username,final String password) {
+		
+		return userRepo.findByUsernameAndPassword(username,password);
+	}
 
-	private Optional<Snapshot> getSnapshot(String userId) {
+	private Optional<Snapshot> getSnapshot(final String userId) {
 		return snapshotRepository.findById(userId);
 	}
 	
-	public boolean ifExists(String userId) {
+	public boolean ifExists(final String userId) {
 		
-		if ( journalRepository.findById(userId) != null)
+		if ( journalRepository.findByUserId(userId) != null)
 			return true;
 			else 
 				return false;
 	}
 
-	private List<String> getEvents(String journalId) {
-		//TODO write findAllafterID
-		return null;
+	private List<Journal> getEvents(final String eventId,final String userId) {
+		
+		return journalRepository.findAllByUserIdAndIdGreaterThanId(userId,eventId);
+		
 	}
 	
-	public <T extends UserEvent> void addEvent(String id,T event,String EventId) {
+	public <T extends UserEvent> void addEvent(final String id,final T event,final String EventId) {
 		
 		journal.setEventId(EventId);
 		journal.setUserId(id);
@@ -63,7 +75,7 @@ public class UserEntity {
 		journalRepository.save(journal);
 		
 		Optional<Snapshot> sshot = getSnapshot(id);
-		List<String> events = getEvents(sshot.get().getJournalId());
+		List<Journal> events = getEvents(sshot.get().getJournalId(),id);
 		
 		if(events.stream().count() >= Settings.CHECKPOINT_LIMIT)
 		{   
@@ -76,7 +88,7 @@ public class UserEntity {
 	}
 
 	@SuppressWarnings("unchecked")
-	private <T extends UserEvent> T deSerializer(String eventString) {
+	private <T extends UserEvent> T deSerializer(final String eventString) {
 		try {
 			byte[] buf = eventString.getBytes();
 			ObjectInputStream objectIn = null;

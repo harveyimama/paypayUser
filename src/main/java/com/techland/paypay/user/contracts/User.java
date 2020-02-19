@@ -1,19 +1,21 @@
 package com.techland.paypay.user.contracts;
 
-import com.techland.paypay.user.impl.AddUserCommand;
+import com.techland.paypay.user.commands.AddUserCommand;
+import com.techland.paypay.user.impl.UserEntity;
 import com.techland.paypay.user.impl.UserState;
 
 public interface User {
 	
 	//read
-	default  UserState login(String username,String password)
+	default  com.techland.paypay.user.persistence.User login(String username,String password,UserEntity userEntity)
 	{
-		return null;
+		return userEntity.login(username, password);
 	}
 	
-	default UserState getAccountdetails(String id)
+	default UserState getAccountdetails(String id,UserEntity userEntity)
 	{
-		return null;
+		return userEntity.getState(id);
+		
 	}
 	
 	//write
@@ -23,7 +25,7 @@ public interface User {
 	default void verifyEmail(String id)
 	{}
 	
-	void openAccount(AddUserCommand user,String eventId);
+	void openAccount(AddUserCommand user);
 
 	void updateAccount();
 	

@@ -1,5 +1,12 @@
 package com.techland.paypay.user.persistence;
 
-public class Failure {
+import java.io.Serializable;
+
+public class Failure implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 }

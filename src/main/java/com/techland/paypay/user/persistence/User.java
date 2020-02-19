@@ -1,14 +1,20 @@
 package com.techland.paypay.user.persistence;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-import com.techland.paypay.user.impl.AddUserCommand;
+import com.techland.paypay.user.commands.AddUserCommand;
 
 @Entity
-public class User {
+public class User implements Serializable {
 	
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	private String id;
 	private  String userType;

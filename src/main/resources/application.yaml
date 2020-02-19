@@ -11,11 +11,13 @@ spring:
         user-out:
           destination: user
           contentType: application/json
+spring: 
    data:
       cassandra:
          contact-points: 127.0.0.1
          username: harvey
          password: harvey
+spring:         
    jpa:
       hibernate:
          ddl-auto: update
