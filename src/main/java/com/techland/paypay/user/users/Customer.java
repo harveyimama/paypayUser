@@ -12,20 +12,22 @@ import com.techland.paypay.user.helper.Status;
 import com.techland.paypay.user.impl.UserPayLoad;
 import com.techland.paypay.user.services.UserMessenger;
 import com.techland.paypay.user.util.LogFeed;
-import com.techland.paypay.user.util.Logger;
+
 
 public final class Customer implements User {
 
 	
 	private UserMessenger<UserAddedEvent> addUserMessenger;
 	private UserPayLoad<UserAddedEvent>  userAddedPayload;
-	
+		private LogFeed logfeed;
 
 
-	public Customer( UserMessenger<UserAddedEvent> addUserMessenger, UserPayLoad<UserAddedEvent>  userAddedPayload) {
+	public Customer( UserMessenger<UserAddedEvent> addUserMessenger, UserPayLoad<UserAddedEvent>  userAddedPayload
+			,LogFeed logfeed) {
 
 		this.addUserMessenger = addUserMessenger;
 		this.userAddedPayload = userAddedPayload;
+		this.logfeed = logfeed;
 	}
 
 	
@@ -57,12 +59,12 @@ public final class Customer implements User {
 				}
 			} );
 			
-			Logger.process(new LogFeed(Constants.SUCESS_MESSAGE, this.getClass().getSimpleName(),
-					UserAddedEvent.class.getSimpleName(), id, user.getId()));
+			logfeed.getInstance(Constants.SUCESS_MESSAGE,Customer.class,user.toString()).process();
+			
 			
 		} catch (Exception e) {
-			Logger.process(new LogFeed(Constants.SERVER_ERROR, this.getClass().getSimpleName(),
-					UserAddedEvent.class.getSimpleName(), id, user.getId()));
+			logfeed.getInstance(Constants.SERVER_ERROR,Customer.class,user.toString(),e.getMessage()).process();
+			
 		}
 		
 	}
