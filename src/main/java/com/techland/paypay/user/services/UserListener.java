@@ -7,6 +7,8 @@ import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.messaging.handler.annotation.Payload;
 
 import com.techland.paypay.user.config.PayPayThread;
+import com.techland.paypay.user.contracts.EventSubscriber;
+import com.techland.paypay.user.contracts.StateSubscriber;
 import com.techland.paypay.user.contracts.Subscriber;
 import com.techland.paypay.user.contracts.UserEvent;
 import com.techland.paypay.user.helper.Constants;
@@ -32,11 +34,19 @@ public class UserListener {
 		try {
 			MonitorFeed<T> monitorFeed = new MonitorFeed<T>();
 
-			entity.addEvent(payload.getUserEventId(), payload.getUserEvent(), payload.getEventId());
+			boolean ret  = entity.addEvent(payload.getUserEventId(), payload.getUserEvent(), payload.getEventId());
+			
+			if(ret)
+			{
 			pushToSubscribers(payload, monitorFeed);
-
 			monitorFeed.getInstance(payload, Constants.USEROUT).process();
 			logfeed.getInstance(Constants.SUCESS_MESSAGE, UserListener.class, payload.toString()).process();
+			}
+			else
+			{
+				monitorFeed.getInstance(payload, Constants.USEROUT).process();
+				logfeed.getInstance(Constants.SOURCE_ERROR, UserListener.class, payload.toString()).process();	
+			}
 
 		} catch (Exception e) {
 			logfeed.getInstance(Constants.SERVER_ERROR, UserListener.class, payload.toString(), e.getMessage())
@@ -71,7 +81,7 @@ public class UserListener {
 
 				try {
 
-					sub.process(payload.getUserEvent());
+					((EventSubscriber) sub).process(payload.getUserEvent());
 					monitorFeed.getInstance(payload, sub.getClass().getSimpleName()).process();
 					logfeed.getInstance(Constants.SUCESS_MESSAGE, sub.getClass(), payload.toString()).process();
 
@@ -93,7 +103,7 @@ public class UserListener {
 			public void run() {
 
 				try {
-					sub.process(state);
+					((StateSubscriber) sub).process(state);
 					monitorFeed.getInstance(payload, sub.getClass().getSimpleName()).process();
 					logfeed.getInstance(Constants.SUCESS_MESSAGE, sub.getClass(), payload.toString()).process();
 				} catch (Exception e) {

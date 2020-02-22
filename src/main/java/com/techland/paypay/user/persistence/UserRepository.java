@@ -1,8 +1,9 @@
 package com.techland.paypay.user.persistence;
 
-import org.springframework.data.repository.reactive.ReactiveCrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepository extends ReactiveCrudRepository<User,String>  {
+
+public interface UserRepository extends JpaRepository<User,String>  {
 
 	User findByUsernameAndPassword(String username, String password);
 

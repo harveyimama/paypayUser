@@ -5,7 +5,7 @@ import java.util.List;
 import com.techland.paypay.user.contracts.Subscriber;
 import com.techland.paypay.user.contracts.UserEvent;
 import com.techland.paypay.user.events.UserAddedEvent;
-import com.techland.paypay.user.util.Logger;
+
 
 public class SubscriberFactory {
 	private static Emailer emailer;

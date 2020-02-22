@@ -15,7 +15,7 @@ public class LoginCommand {
 		return password;
 	}
 	public void setPassword(String password) {
-		this.password = password;
+		this.password =  UserSecurity.encrypt(password);
 	}
 	
 	
