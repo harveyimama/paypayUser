@@ -2,7 +2,7 @@ package com.techland.paypay.user.helper;
 
 public enum Status {
 	
-	ACTIVE("Active"),EMAILNOTVERIFIED("Email-Not-Veirfied"),LOCKED("Locked"),DELETED("deleted");
+	ACTIVE("Active"),EMAILNOTVERIFIED("Email-Not-Veirfied"),LOCKED("Locked"),DELETED("deleted"),VERIFICATIONEMAILSENT("Email-Sent");
 	
 	private String name ;
 

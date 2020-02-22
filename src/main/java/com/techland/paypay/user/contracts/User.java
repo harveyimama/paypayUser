@@ -1,6 +1,8 @@
 package com.techland.paypay.user.contracts;
 
 import com.techland.paypay.user.commands.AddUserCommand;
+import com.techland.paypay.user.commands.StatusChangeCommand;
+import com.techland.paypay.user.helper.Status;
 import com.techland.paypay.user.impl.UserEntity;
 import com.techland.paypay.user.impl.UserState;
 
@@ -29,6 +31,6 @@ public interface User {
 
 	void updateAccount();
 	
-	void updateAccountStatus();
+	void updateAccountStatus(StatusChangeCommand statusCommand );
 
 }

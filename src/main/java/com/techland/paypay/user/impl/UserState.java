@@ -1,7 +1,9 @@
 package com.techland.paypay.user.impl;
 
 
+import com.techland.paypay.user.contracts.UserEvent;
 import com.techland.paypay.user.events.UserAddedEvent;
+import com.techland.paypay.user.events.UserStatusChangedEvent;
 import com.techland.paypay.user.helper.Status;
 
 public class UserState {
@@ -19,20 +21,9 @@ public class UserState {
 	private  String role;
 	private  String status;
 	
-	public void addEvent(UserAddedEvent event)
-	{
-		this.setEmail(event.getEmail());
-		this.setFullname(event.getFullname());
-		this.setId(event.getId());
-		this.setPassword(event.getPassword());
-		this.setRole(event.getRole());
-		this.setUsername(event.getUsername());
-		this.setUserType(event.getUserType());
-		this.setStatus(Status.EMAILNOTVERIFIED.getName());
-	}
 	
 	
-	
+		
 	public UserState() {
 		
 	}
@@ -86,6 +77,27 @@ public class UserState {
 	}
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	
+	
+	public <T extends UserEvent> void addEvent(T event)
+	{
+		if (event instanceof UserAddedEvent)
+		{
+		this.setEmail(((UserAddedEvent) event).getEmail());
+		this.setFullname(((UserAddedEvent) event).getFullname());
+		this.setId(((UserAddedEvent) event).getId());
+		this.setPassword(((UserAddedEvent) event).getPassword());
+		this.setRole(((UserAddedEvent) event).getRole());
+		this.setUsername(((UserAddedEvent) event).getUsername());
+		this.setUserType(((UserAddedEvent) event).getUserType());
+		this.setStatus(Status.EMAILNOTVERIFIED.getName());
+		}
+		
+		if (event instanceof UserStatusChangedEvent)
+		{
+			this.setStatus(((UserStatusChangedEvent) event).getStatus());
+		}
 	}
 	
 	

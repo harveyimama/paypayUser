@@ -7,6 +7,7 @@ import com.techland.paypay.user.contracts.StateSubscriber;
 import com.techland.paypay.user.contracts.Subscriber;
 import com.techland.paypay.user.contracts.UserEvent;
 import com.techland.paypay.user.events.UserAddedEvent;
+import com.techland.paypay.user.events.UserStatusChangedEvent;
 
 public class SubscriberFactory {
 	private static Emailer emailer;
@@ -24,6 +25,10 @@ public class SubscriberFactory {
 	public static <R extends UserEvent> List<Subscriber> getInstance(R userEvent) {
 		if (userEvent instanceof UserAddedEvent) {
 			list.add(emailer);
+			list.add(userPersistance);
+		}
+		
+		if (userEvent instanceof UserStatusChangedEvent) {
 			list.add(userPersistance);
 		}
 

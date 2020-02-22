@@ -42,7 +42,7 @@ public final class UserEntity {
 		List<Journal> events = getEvents(snapshot.getJournalId(), userId);
 		UserState userState = new UserState();
 		events.stream().forEach(event -> {
-			userState.addEvent((UserAddedEvent) event.getUserEvent());
+			userState.addEvent(event.getUserEvent());
 		});
 		return userState;
 	}
