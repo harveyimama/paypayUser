@@ -1,4 +1,4 @@
-package com.techland.paypay.user.services;
+package com.techland.paypay.user.messaging;
 
 
 import org.springframework.integration.support.MessageBuilder;

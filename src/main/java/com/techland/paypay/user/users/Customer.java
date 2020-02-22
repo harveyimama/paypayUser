@@ -10,7 +10,7 @@ import com.techland.paypay.user.events.UserAddedEvent;
 import com.techland.paypay.user.helper.Constants;
 import com.techland.paypay.user.helper.Status;
 import com.techland.paypay.user.impl.UserPayLoad;
-import com.techland.paypay.user.services.UserMessenger;
+import com.techland.paypay.user.messaging.UserMessenger;
 import com.techland.paypay.user.util.LogFeed;
 
 
