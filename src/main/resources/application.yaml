@@ -11,19 +11,28 @@ spring:
         user-out:
           destination: user
           contentType: application/json
-spring: 
-   data:
-      cassandra:
-         contact-points: 127.0.0.1
-         username: harvey
-         password: harvey
-spring:         
-   jpa:
-      hibernate:
-         ddl-auto: update
-   datasource: 
-      url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/db_example
+  data:
+    cassandra:
+      contact-points: 127.0.0.1
       username: harvey
-      password: harvey
-         
-   
+      password: harvey        
+  jpa:
+    hibernate.ddl-auto: update
+    generate-ddl: true
+    show-sql: true
+  datasource: 
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/user
+    username: harvey
+    password: harvey
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: mymail@gmail.com
+    password: mypassword
+    protocol: smtp
+    tls: true
+    properties.mail.smtp:
+        auth: true
+        starttls.enable: true
+        ssl.trust: smtp.gmail.com

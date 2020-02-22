@@ -3,18 +3,24 @@ package com.techland.paypay.user.subscribers;
 import com.techland.paypay.user.contracts.EventSubscriber;
 import com.techland.paypay.user.contracts.UserEvent;
 import com.techland.paypay.user.events.UserAddedEvent;
+import com.techland.paypay.user.helper.Email;
 import com.techland.paypay.user.persistence.EventFailure;
 import com.techland.paypay.user.persistence.EventFailureRepository;
-import com.techland.paypay.user.responses.ServiceResponse;
+import javax.mail.internet.MimeMessage;
+
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 
 public final class Emailer implements EventSubscriber {
 
-	private ServiceResponse resp;
 	private EventFailure failure;
 	private EventFailureRepository failureRepo;
+	private JavaMailSender javaMailSender;
 
-	Emailer(ServiceResponse resp) {
-		this.resp = resp;
+	public Emailer(EventFailure failure, EventFailureRepository failureRepo, JavaMailSender javaMailSender) {
+		this.javaMailSender = javaMailSender;
+		this.failureRepo = failureRepo;
+		this.failure = failure;
 	}
 
 	@Override
@@ -26,20 +32,37 @@ public final class Emailer implements EventSubscriber {
 	public <T extends UserEvent> void process(T userEvent) {
 
 		if (userEvent instanceof UserAddedEvent) {
-			sendVericiationEmail();
-			if (!resp.isSuccess())
-				handleError(userEvent, failure, failureRepo);
+			sendVericiationEmail((UserAddedEvent) userEvent);
 		}
 
 	}
 
-	private ServiceResponse sendVericiationEmail() {
+	private void sendVericiationEmail(UserAddedEvent userAdded) {
+
 		System.out.print("Sending veirifcation Email");
-		return resp;
+
+		try {
+
+			MimeMessage msg = javaMailSender.createMimeMessage();
+			MimeMessageHelper helper = new MimeMessageHelper(msg, true);
+
+			helper.setTo(userAdded.getEmail());
+			helper.setSubject(Email.WELCOME_SUBJECT);
+			helper.setFrom(Email.WELCOME_SENDER);
+			helper.setText(Email.WELCOME_EMAIL);
+			// helper.addAttachment("my_photo.png", new ClassPathResource("android.png"));
+
+			javaMailSender.send(msg);
+
+		} catch (Exception e) {
+			handleError(userAdded, failure, failureRepo);
+		}
+
 	}
 
 	@Override
-	public <T extends UserEvent> void handleError(T userEvent, EventFailure failure, EventFailureRepository failureRepo) {
+	public <T extends UserEvent> void handleError(T userEvent, EventFailure failure,
+			EventFailureRepository failureRepo) {
 		failure.setEvent(userEvent);
 		failure.setSubscriber(this.getClass().getSimpleName());
 		failureRepo.save(failure);
