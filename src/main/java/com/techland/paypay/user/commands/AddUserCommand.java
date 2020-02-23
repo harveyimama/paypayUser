@@ -1,6 +1,6 @@
-package com.techland.paypay.user.impl;
+package com.techland.paypay.user.commands;
 
-public class UserCommand {
+public class AddUserCommand {
 	
 	private String id;
 	private String username;
@@ -40,7 +40,7 @@ public class UserCommand {
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
+		this.password = UserSecurity.encrypt(password);
 	}
 
 	public String getEmail() {

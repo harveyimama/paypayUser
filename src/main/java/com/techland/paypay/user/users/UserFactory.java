@@ -1,25 +1,25 @@
-package com.techland.paypay.user.usertypes;
+package com.techland.paypay.user.users;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
-import com.techland.paypay.user.contracts.UserType;
+import com.techland.paypay.user.contracts.User;
 @Service
-public class UserTypeFactory {
+public class UserFactory {
 	
-	private static Map<UserTypes,UserType> userTypeMap = new HashMap<UserTypes,UserType>();
+	private static Map<UserTypes,User> userTypeMap = new HashMap<UserTypes,User>();
 	private static Customer customer;
 	
-	private UserTypeFactory(Customer cust)
+	private UserFactory(Customer cust)
 	{
 		customer = cust;
 	}
 	
-	public static UserType getInstance(UserTypes userType)
+	public static User getInstance(UserTypes userType)
 	{
-		UserType utype = userTypeMap.get(userType);
+		User utype = userTypeMap.get(userType);
 		if (utype == null)
 		{
 			switch (userType) {

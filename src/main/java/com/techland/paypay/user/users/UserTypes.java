@@ -1,4 +1,4 @@
-package com.techland.paypay.user.usertypes;
+package com.techland.paypay.user.users;
 
 public enum UserTypes {
 

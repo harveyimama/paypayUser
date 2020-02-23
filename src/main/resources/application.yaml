@@ -5,9 +5,34 @@ spring:
         binder:
           brokers: localhost:9092
       bindings:
-        greetings-in:
-          destination: greetings
+        user-in:
+          destination: user
           contentType: application/json
-        greetings-out:
-          destination: greetings
+        user-out:
+          destination: user
           contentType: application/json
+  data:
+    cassandra:
+      contact-points: 127.0.0.1
+      username: harvey
+      password: harvey        
+  jpa:
+    hibernate.ddl-auto: update
+    generate-ddl: true
+    show-sql: true
+  datasource: 
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/user
+    username: harvey
+    password: harvey
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: mymail@gmail.com
+    password: mypassword
+    protocol: smtp
+    tls: true
+    properties.mail.smtp:
+        auth: true
+        starttls.enable: true
+        ssl.trust: smtp.gmail.com

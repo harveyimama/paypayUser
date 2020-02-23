@@ -1,20 +1,20 @@
-package com.techland.paypay.user.entity;
+package com.techland.paypay.user.persistence;
+
+import java.io.Serializable;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-import com.techland.paypay.user.impl.UserCommand;
+import com.techland.paypay.user.commands.AddUserCommand;
 
 @Entity
-public class User {
+public class User implements Serializable {
 	
-	private UserCommand userCommand;
 	
-	User(UserCommand userCommand)
-	{
-		this.userCommand = userCommand;
-	}
-	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	private String id;
 	private  String userType;
@@ -25,22 +25,7 @@ public class User {
 	private  String role;
 	private  String status;
 	
-	public void setCommand(UserCommand userCommand)
-	{
-		this.setEmail(userCommand.getEmail());
-		this.setFullname(userCommand.getFullname());
-		this.setId(userCommand.getId());
-		this.setPassword(userCommand.getPassword());
-		this.setRole(userCommand.getRole());
-		this.setUsername(userCommand.getUsername());
-		this.setUserType(userCommand.getUserType());
 		
-		
-		
-	}
-	
-	
-	
 	public String getId() {
 		return id;
 	}
