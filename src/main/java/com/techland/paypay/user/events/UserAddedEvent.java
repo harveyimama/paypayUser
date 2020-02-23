@@ -80,10 +80,17 @@ public String getStatus() {
 
 @Override
 public String toString() {
-	return "{\"userType\":\"" + userType + "\", id\":\"" + id + "\", username\":\"" + username + "\", password\":\""
-			+ password + "\", email\":\"" + email + "\", fullname\":\"" + fullname + "\", role\":\"" + role
-			+ "\", status\":\"" + status + "}";
+	return "{\"class\":\"UserAddedEvent\",\"userType\":\"" + userType + "\", \"id\":\"" + id + "\", \"username\":\""
+			+ username + "\", \"password\":\"" + password + "\", \"email\":\"" + email + "\", \"fullname\":\""
+			+ fullname + "\", \"role\":\"" + role + "\", \"status\":\"" + status + "\"}";
 }
+
+
+
+
+
+
+
 
 
 

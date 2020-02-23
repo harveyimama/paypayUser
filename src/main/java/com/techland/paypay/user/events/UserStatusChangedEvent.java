@@ -19,6 +19,14 @@ public final class UserStatusChangedEvent  implements UserEvent,Serializable {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
+	@Override
+	public String toString() {
+		return "{\"class\":\"UserStatusChangedEvent\",\"status\":\"" + status + "\"}";
+	}
+
+	
+	
 	
 	
 }

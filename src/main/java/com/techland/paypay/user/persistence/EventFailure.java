@@ -1,31 +1,38 @@
 package com.techland.paypay.user.persistence;
 
-import java.io.Serializable;
-
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import com.techland.paypay.user.contracts.UserEvent;
 @Entity
-public class EventFailure implements Serializable {
+public class EventFailure {
 
-	private static final long serialVersionUID = 1L;
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@Column(columnDefinition = "serial")
+	private String id;
 	private String subscriber;
-	private  UserEvent event;
-	
-	
+	private String event;
+		
 	public String getSubscriber() {
 		return subscriber;
 	}
 	public void setSubscriber(String subscriber) {
 		this.subscriber = subscriber;
 	}
-	public UserEvent getEvent() {
+	public String getEvent() {
 		return event;
 	}
-	public void setEvent(UserEvent event) {
+	public void setEvent(String event) {
 		this.event = event;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
 	}
 	
 	

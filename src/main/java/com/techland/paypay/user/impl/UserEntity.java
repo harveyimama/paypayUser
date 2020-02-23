@@ -78,7 +78,7 @@ public final class UserEntity {
 			
 			journal.setEventId(EventId);
 			journal.setUserId(id);
-			journal.setUserEvent(event);
+			journal.setUserEvent(event.toString());
 			
 			Journal ret = journalRepository.save(journal);
 			
@@ -100,7 +100,7 @@ public final class UserEntity {
 				if (events.stream().count() >= Settings.CHECKPOINT_LIMIT) {
 					snapshot.setJournalId(journal.getEventId());
 					snapshot.setUserId(journal.getUserId());
-					snapshot.setUserState(getState(journal.getUserId()));
+					snapshot.setUserState(getState(journal.getUserId()).toString());
 
 					snapshotRepository.save(snapshot);
 				}

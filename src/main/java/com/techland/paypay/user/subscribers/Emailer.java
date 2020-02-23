@@ -79,7 +79,7 @@ public final class Emailer implements EventSubscriber {
 	@Override
 	public <T extends UserEvent> void handleError(T userEvent, EventFailure failure,
 			EventFailureRepository failureRepo) {
-		failure.setEvent(userEvent);
+		failure.setEvent(userEvent.toString());
 		failure.setSubscriber(this.getClass().getSimpleName());
 		failureRepo.save(failure);
 	}

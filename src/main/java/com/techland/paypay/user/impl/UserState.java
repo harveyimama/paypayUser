@@ -1,9 +1,8 @@
 package com.techland.paypay.user.impl;
 
 
-import com.techland.paypay.user.contracts.UserEvent;
-import com.techland.paypay.user.events.UserAddedEvent;
-import com.techland.paypay.user.events.UserStatusChangedEvent;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.techland.paypay.user.helper.Status;
 
 public class UserState {
@@ -80,25 +79,48 @@ public class UserState {
 	}
 	
 	
-	public <T extends UserEvent> void addEvent(T event)
-	{
-		if (event instanceof UserAddedEvent)
-		{
-		this.setEmail(((UserAddedEvent) event).getEmail());
-		this.setFullname(((UserAddedEvent) event).getFullname());
-		this.setId(((UserAddedEvent) event).getId());
-		this.setPassword(((UserAddedEvent) event).getPassword());
-		this.setRole(((UserAddedEvent) event).getRole());
-		this.setUsername(((UserAddedEvent) event).getUsername());
-		this.setUserType(((UserAddedEvent) event).getUserType());
-		this.setStatus(Status.EMAILNOTVERIFIED.getName());
+	public  boolean addEvent(String event) 
+	{ 
+		boolean success = false;
+		try {
+			ObjectMapper mapper = new ObjectMapper();
+			JsonNode actualObj = mapper.readTree(event);
+  
+ 
+			if (actualObj.get("class").asText().equals("UserAddedEvent"))
+			{
+			this.setEmail(actualObj.get("email").asText());
+			this.setFullname(actualObj.get("fullname").asText());
+			this.setId(actualObj.get("id").asText());
+			this.setPassword(actualObj.get("password").asText());
+			this.setRole(actualObj.get("role").asText());
+			this.setUsername(actualObj.get("username").asText());
+			this.setUserType(actualObj.get("usertype").asText());
+			this.setStatus(Status.EMAILNOTVERIFIED.getName());
+			}
+			
+			if (actualObj.get("class").asText().equals("UserStatusChangedEvent"))
+			{
+				this.setStatus(actualObj.get("status").asText());
+			}
+		success = true;
+		} catch (Exception e) {
+			e.printStackTrace();	
 		}
 		
-		if (event instanceof UserStatusChangedEvent)
-		{
-			this.setStatus(((UserStatusChangedEvent) event).getStatus());
-		}
+		return success;
 	}
+
+
+
+	@Override
+	public String toString() {
+		return "{\"class\":\"UserState\",\"id\":\"" + id + "\", \"userType\":\"" + userType + "\", \"username\":\""
+				+ username + "\", \"password\":\"" + password + "\", \"email\":\"" + email + "\", \"fullname\":\""
+				+ fullname + "\", \"role\":\"" + role + "\", \"status\":\"" + status + "\"}";
+	}
+	
+	
 	
 	
 }

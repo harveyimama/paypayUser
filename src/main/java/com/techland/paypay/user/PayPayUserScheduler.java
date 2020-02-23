@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.techland.paypay.user.contracts.EventSubscriber;
 import com.techland.paypay.user.contracts.StateSubscriber;
+import com.techland.paypay.user.events.EventFactory;
 import com.techland.paypay.user.impl.UserEntity;
 import com.techland.paypay.user.persistence.EventFailure;
 import com.techland.paypay.user.persistence.EventFailureRepository;
@@ -39,7 +40,7 @@ public class PayPayUserScheduler {
 
 			eventFailures.stream().forEach(eventFailure -> {
 
-				subscriber.process(eventFailure.getEvent());
+				subscriber.process(EventFactory.getEvent(eventFailure.getEvent()));
 
 			});
 

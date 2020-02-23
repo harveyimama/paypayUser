@@ -1,21 +1,14 @@
 package com.techland.paypay.user.persistence;
 
-import java.io.Serializable;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import com.techland.paypay.user.impl.*;
 
 @Entity
-public class Snapshot implements Serializable {
+public class Snapshot  {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	@Id
 	String userId;
-	UserState UserState;
+	String UserState;
 	String journalId;
 	
 	public String getUserId() {
@@ -30,10 +23,10 @@ public class Snapshot implements Serializable {
 	public void setJournalId(String journalId) {
 		this.journalId = journalId;
 	}
-	public UserState getUserState() {
+	public String getUserState() {
 		return UserState;
 	}
-	public void setUserState(UserState userState) {
+	public void setUserState(String userState) {
 		UserState = userState;
 	}
 	
