@@ -1,7 +1,9 @@
 package com.techland.paypay.user.commands;
 
-import com.techland.paypay.user.helper.Status;
+import org.springframework.stereotype.Component;
 
+import com.techland.paypay.user.helper.Status;
+@Component
 public class StatusChangeCommand {
 	
 	private String id;

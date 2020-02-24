@@ -1,7 +1,5 @@
 package com.techland.paypay.user.config;
 
-import java.time.Duration;
-
 public final class Settings {
 	
 	final static int NUMBER_OF_THREADS = 100;
@@ -24,5 +22,17 @@ public final class Settings {
 	{
 		MOCK = false;
 		System.out.println("Set to live mode");
+	}
+	
+	private static long lastTime;
+	
+	public static synchronized String uniqueId()
+	{
+		for (;/*ever*/;) {
+			final long n = System.nanoTime();
+			if (n==lastTime) continue;
+			lastTime = n;
+			return ""+System.currentTimeMillis()+n;
+		}
 	}
 }

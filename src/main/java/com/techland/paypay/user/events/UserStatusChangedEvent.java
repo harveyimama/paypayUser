@@ -2,8 +2,10 @@ package com.techland.paypay.user.events;
 
 import java.io.Serializable;
 
-import com.techland.paypay.user.contracts.UserEvent;
+import org.springframework.stereotype.Component;
 
+import com.techland.paypay.user.contracts.UserEvent;
+@Component
 public final class UserStatusChangedEvent  implements UserEvent,Serializable {
 
 	/**

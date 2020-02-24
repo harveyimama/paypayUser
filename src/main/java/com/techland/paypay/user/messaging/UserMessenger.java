@@ -4,7 +4,7 @@ package com.techland.paypay.user.messaging;
 import org.springframework.integration.support.MessageBuilder;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.MessageHeaders;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.util.MimeTypeUtils;
 
 import com.techland.paypay.user.config.Settings;
@@ -15,7 +15,7 @@ import com.techland.paypay.user.impl.UserPayLoad;
 import com.techland.paypay.user.util.LogFeed;
 import com.techland.paypay.user.util.MonitorFeed;
 
-@Service
+@Component
 public class UserMessenger<T extends UserEvent> {
 	private final UserMessage userMessage;
 	private  MonitorFeed<T> monitorFeed;
