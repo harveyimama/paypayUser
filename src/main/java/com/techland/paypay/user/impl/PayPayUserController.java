@@ -11,6 +11,7 @@ import com.techland.paypay.user.commands.LoginCommand;
 import com.techland.paypay.user.contracts.User;
 import com.techland.paypay.user.helper.Constants;
 import com.techland.paypay.user.responses.ServiceResponse;
+import com.techland.paypay.user.users.GeneralUser;
 import com.techland.paypay.user.users.UserFactory;
 import com.techland.paypay.user.users.UserTypes;
 import com.techland.paypay.user.util.LogFeed;
@@ -19,13 +20,13 @@ import com.techland.paypay.user.util.LogFeed;
 public class PayPayUserController {
 
 	private ServiceResponse resp;
-	private User user;
+	private GeneralUser user;
 	private UserEntity userEntity;
 	private LogFeed logfeed;
 	
 
 
-	public PayPayUserController(ServiceResponse resp, User user,UserEntity userEntity,LogFeed logfeed) {
+	public PayPayUserController(ServiceResponse resp, GeneralUser user,UserEntity userEntity,LogFeed logfeed) {
 		this.resp = resp;
 		this.user = user;
 		this.userEntity = userEntity;

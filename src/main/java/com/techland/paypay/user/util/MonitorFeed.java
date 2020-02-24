@@ -2,11 +2,13 @@ package com.techland.paypay.user.util;
 
 import java.sql.Timestamp;
 
+import org.springframework.stereotype.Component;
+
 import com.techland.paypay.user.config.Settings;
 import com.techland.paypay.user.contracts.UserEvent;
 import com.techland.paypay.user.impl.UserPayLoad;
 
-
+@Component
 public class MonitorFeed<T extends UserEvent> {
 	
 	private  String domain;

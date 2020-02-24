@@ -1,21 +1,25 @@
 package com.techland.paypay.user.persistence;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.springframework.data.cassandra.core.cql.Ordering;
+import org.springframework.data.cassandra.core.cql.PrimaryKeyType;
+import org.springframework.data.cassandra.core.mapping.PrimaryKeyColumn;
+import org.springframework.data.cassandra.core.mapping.Table;
+import org.springframework.stereotype.Component;
 
-@Entity
-
+@Table
+@Component
 public class Journal  {
-	
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	@Column(columnDefinition = "serial")
+		
+	 @PrimaryKeyColumn(
+		      name = "eventId", 
+		      ordinal = 2, 
+		      type = PrimaryKeyType.PARTITIONED, 
+		      ordering = Ordering.DESCENDING)
 	private String eventId;
-	private String userEvent;	
+	 @Column
+	private String userEvent;
+	 @Column
 	private String userId;
 	
 		

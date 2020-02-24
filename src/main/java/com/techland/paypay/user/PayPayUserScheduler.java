@@ -35,12 +35,12 @@ public class PayPayUserScheduler {
 		List<EventSubscriber> subscribers = SubscriberFactory.getAllEventSubscribers();
 
 		subscribers.stream().forEach(subscriber -> {
-
-			List<EventFailure> eventFailures = eventRepo.findBySubscriber(subscriber.getClass().getSimpleName());
+	
+			List<EventFailure> eventFailures = eventRepo.findAllByEventSubscriber(subscriber.getClass().getSimpleName());
 
 			eventFailures.stream().forEach(eventFailure -> {
 
-				subscriber.process(EventFactory.getEvent(eventFailure.getEvent()));
+				subscriber.process(EventFactory.getEvent(eventFailure.getFailureEvent()));
 
 			});
 
@@ -55,11 +55,11 @@ public class PayPayUserScheduler {
 
 		subscribers.stream().forEach(subscriber -> {
 
-			List<StateFailure> stateFailures = stateRepo.findBySubscriber(subscriber.getClass().getSimpleName());
+			List<StateFailure> stateFailures = stateRepo.findByStateSubscriber(subscriber.getClass().getSimpleName());
 
 			stateFailures.stream().forEach(stateFailure -> {
 
-				subscriber.process(user.getState(stateFailure.getUserId()));
+				subscriber.process(user.getState(stateFailure.getStateUserId()));
 
 			});
 

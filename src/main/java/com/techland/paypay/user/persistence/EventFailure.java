@@ -1,40 +1,44 @@
 package com.techland.paypay.user.persistence;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.springframework.data.cassandra.core.cql.Ordering;
+import org.springframework.data.cassandra.core.cql.PrimaryKeyType;
+import org.springframework.data.cassandra.core.mapping.Column;
+import org.springframework.data.cassandra.core.mapping.PrimaryKeyColumn;
+import org.springframework.data.cassandra.core.mapping.Table;
 
-@Entity
+@Table
 public class EventFailure {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	@Column(columnDefinition = "serial")
-	private String id;
-	private String subscriber;
-	private String event;
-		
-	public String getSubscriber() {
-		return subscriber;
-	}
-	public void setSubscriber(String subscriber) {
-		this.subscriber = subscriber;
-	}
-	public String getEvent() {
-		return event;
-	}
-	public void setEvent(String event) {
-		this.event = event;
-	}
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
+	 @PrimaryKeyColumn(
+		      name = "eventFailureId", 
+		      ordinal = 2, 
+		      type = PrimaryKeyType.PARTITIONED, 
+		      ordering = Ordering.DESCENDING)
+	private String eventFailureId;
+	@Column
+	private String eventSubscriber;
+	@Column
+	private String failureEvent;
 	
+	public String getEventFailureId() {
+		return eventFailureId;
+	}
+	public void setEventFailureId(String eventFailureId) {
+		this.eventFailureId = eventFailureId;
+	}
+	public String getEventSubscriber() {
+		return eventSubscriber;
+	}
+	public void setEventSubscriber(String eventSubscriber) {
+		this.eventSubscriber = eventSubscriber;
+	}
+	public String getFailureEvent() {
+		return failureEvent;
+	}
+	public void setFailureEvent(String failureEvent) {
+		this.failureEvent = failureEvent;
+	}
+		
 	
 	
 	

@@ -8,7 +8,7 @@ import org.springframework.data.cassandra.repository.CassandraRepository;
 public interface JournalRepository extends  CassandraRepository<Journal,String> {
 
 
-	List<Journal> findAllByUserIdAndIdGreaterThanId(String userId, String eventId);
+	List<Journal> findAllByUserIdAndEventIdGreaterThan(String userId, String eventId);
 
 	Object findByUserId(String userId);
 

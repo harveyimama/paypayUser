@@ -63,15 +63,15 @@ public class UserPersistance  implements StateSubscriber {
 
 	@Override
 	public <T extends UserState> void handleError(T userState, StateFailure failure, StateFailureRepository failureRepo) {
-		failure.setUserId(userState.getId());
-		failure.setSubscriber(this.getClass().getSimpleName());
+		failure.setStateUserId(userState.getId());
+		failure.setStateSubscriber(this.getClass().getSimpleName());
 		failureRepo.save(failure);
 	}
 
 	@Override
 	public <T extends UserState> void handleSuccess(T userState, StateFailure failure, StateFailureRepository failureRepo) {
-		failure.setUserId(userState.getId());
-		failure.setSubscriber(this.getClass().getSimpleName());
+		failure.setStateUserId(userState.getId());
+		failure.setStateSubscriber(this.getClass().getSimpleName());
 		failureRepo.delete(failure);
 	}
 

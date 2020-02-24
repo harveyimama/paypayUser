@@ -3,6 +3,8 @@ package com.techland.paypay.user.users;
 
 import java.util.concurrent.ExecutorService;
 
+import org.springframework.stereotype.Component;
+
 import com.techland.paypay.user.commands.AddUserCommand;
 import com.techland.paypay.user.commands.StatusChangeCommand;
 import com.techland.paypay.user.config.PayPayThread;
@@ -15,7 +17,7 @@ import com.techland.paypay.user.impl.UserPayLoad;
 import com.techland.paypay.user.messaging.UserMessenger;
 import com.techland.paypay.user.util.LogFeed;
 
-
+@Component
 public final class Customer implements User {
 
 	

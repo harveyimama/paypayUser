@@ -1,8 +1,10 @@
 package com.techland.paypay.user.util;
 
+import org.springframework.stereotype.Component;
+
 import com.techland.paypay.user.config.Settings;
 
-
+@Component
 public class LogFeed {
 	
 	private  String domain;

@@ -1,5 +1,8 @@
 package com.techland.paypay.user.responses;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class ServiceResponse {
 	
 	private boolean success;

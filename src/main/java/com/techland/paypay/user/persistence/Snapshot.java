@@ -1,21 +1,33 @@
 package com.techland.paypay.user.persistence;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import org.springframework.data.cassandra.core.cql.Ordering;
+import org.springframework.data.cassandra.core.cql.PrimaryKeyType;
+import org.springframework.data.cassandra.core.mapping.Column;
+import org.springframework.data.cassandra.core.mapping.PrimaryKeyColumn;
+import org.springframework.data.cassandra.core.mapping.Table;
+import org.springframework.stereotype.Component;
 
-@Entity
+@Table
+@Component
 public class Snapshot  {
 
-	@Id
-	String userId;
+	 @PrimaryKeyColumn(
+		      name = "snapshotUserId", 
+		      ordinal = 2, 		      
+		      type = PrimaryKeyType.PARTITIONED, 
+		      ordering = Ordering.DESCENDING)
+	String snapshotUserId;
+	 @Column
 	String UserState;
+	 @Column
 	String journalId;
 	
-	public String getUserId() {
-		return userId;
+	
+	public String getSnapshotUserId() {
+		return snapshotUserId;
 	}
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setSnapshotUserId(String snapshotUserId) {
+		this.snapshotUserId = snapshotUserId;
 	}
 	public String getJournalId() {
 		return journalId;

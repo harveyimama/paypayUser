@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ExecutorService;
 
+import org.springframework.stereotype.Component;
 
 import com.techland.paypay.user.config.PayPayThread;
 import com.techland.paypay.user.config.Settings;
@@ -19,7 +20,7 @@ import com.techland.paypay.user.persistence.User;
 import com.techland.paypay.user.persistence.UserRepository;
 
 
-
+@Component
 public final class UserEntity {
 
 	private Journal journal;
@@ -66,7 +67,7 @@ public final class UserEntity {
 
 	private List<Journal> getEvents(final String eventId, final String userId) {
 
-		return journalRepository.findAllByUserIdAndIdGreaterThanId(userId, eventId);
+		return journalRepository.findAllByUserIdAndEventIdGreaterThan(userId, eventId);
 
 	}
 
@@ -99,7 +100,7 @@ public final class UserEntity {
 
 				if (events.stream().count() >= Settings.CHECKPOINT_LIMIT) {
 					snapshot.setJournalId(journal.getEventId());
-					snapshot.setUserId(journal.getUserId());
+					snapshot.setSnapshotUserId(journal.getUserId());
 					snapshot.setUserState(getState(journal.getUserId()).toString());
 
 					snapshotRepository.save(snapshot);

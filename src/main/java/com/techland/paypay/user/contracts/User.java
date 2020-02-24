@@ -1,11 +1,13 @@
 package com.techland.paypay.user.contracts;
 
+import org.springframework.stereotype.Service;
+
 import com.techland.paypay.user.commands.AddUserCommand;
 import com.techland.paypay.user.commands.StatusChangeCommand;
-import com.techland.paypay.user.helper.Status;
 import com.techland.paypay.user.impl.UserEntity;
 import com.techland.paypay.user.impl.UserState;
 
+@Service
 public interface User {
 	
 	//read

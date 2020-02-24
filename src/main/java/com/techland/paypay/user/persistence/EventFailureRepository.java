@@ -5,6 +5,7 @@ import org.springframework.data.cassandra.repository.CassandraRepository;
 
 public interface EventFailureRepository extends  CassandraRepository<EventFailure,String> {
 
-	List<EventFailure> findBySubscriber(String subscriber);
+	List<EventFailure> findAllByEventSubscriber(String eventSubscriber);
+	
 
 }
