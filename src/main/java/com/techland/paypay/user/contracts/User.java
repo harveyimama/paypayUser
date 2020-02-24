@@ -29,7 +29,7 @@ public interface User {
 	default void verifyEmail(String id)
 	{}
 	
-	void openAccount(AddUserCommand user);
+	String openAccount(AddUserCommand user);
 
 	void updateAccount();
 	

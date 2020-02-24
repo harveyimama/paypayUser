@@ -2,8 +2,8 @@ package com.techland.paypay.user.helper;
 
 public final class Constants {
 
-	public static final String USERIN = "user-in";
-	public static final String USEROUT = "user-out";
+	public static final String USERIN = "userpayload-in";
+	public static final String USEROUT = "userpayload-out";
 	
 	
 	public static final String SOURCE_ERROR = "Event Store failed to persist event";

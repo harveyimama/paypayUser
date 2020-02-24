@@ -1,18 +1,20 @@
-spring:
+spring: 
   main:
     allow-bean-definition-overriding: true 
   cloud:
     stream:
       kafka:
         binder:
-          brokers: localhost:9092
+          brokers: localhost
+          defaultBrokerPort: 9092
       bindings:
         user-in:
-          destination: user
+          destination: userpayload
           contentType: application/json
         user-out:
-          destination: user
+          destination: userpayload
           contentType: application/json
+      default-binder: kafka
   data:
     cassandra:
       contact-points: 127.0.0.1

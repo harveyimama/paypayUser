@@ -28,8 +28,9 @@ public class UserListener {
 		this.logfeed = logfeed;
 	}
 
-	@StreamListener(Constants.USEROUT)
+	@StreamListener(Constants.USERIN)
 	public <T extends UserEvent> void handleEvent(@Payload UserPayLoad<T> payload) {
+		System.out.println("Im listening .......");
 
 		try {
 			MonitorFeed<T> monitorFeed = new MonitorFeed<T>();

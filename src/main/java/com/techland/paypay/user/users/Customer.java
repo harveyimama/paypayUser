@@ -46,7 +46,7 @@ public final class Customer implements User {
 	
 
 	@Override
-	public void openAccount(AddUserCommand user) {
+	public String openAccount(AddUserCommand user) {
 
 		try {
 			
@@ -70,6 +70,7 @@ public final class Customer implements User {
 			logfeed.getInstance(Constants.SERVER_ERROR,Customer.class,user.toString(),e.getMessage()).process();
 			
 		}
+		return userAddedPayload.getEventId();
 		
 	}
 

@@ -33,11 +33,12 @@ public class LogFeed {
 	{
 		returnString = domain.concat("|").concat(clazz.getSimpleName()).concat("|");
 		
-		for(String info : this.otherInfo)
-		{
-			returnString.concat(info).concat("|");
-		}
-		returnString.concat(" =======> ").concat(info);
+			for(String info : this.otherInfo)
+			{
+				returnString = returnString.concat(info).concat("|");
+			}
+			returnString =	returnString.concat(" =======> ").concat(info);
+		
 		 
 		return returnString;
 	}

@@ -2,6 +2,13 @@ package com.techland.paypay.user.commands;
 
 public class AddUserCommand {
 	
+	@Override
+	public String toString() {
+		return "{\"class\":\"AddUserCommand\",\"id\":\"" + id + "\", \"username\":\"" + username + "\", \"password\":\""
+				+ password + "\", \"email\":\"" + email + "\", \"fullname\":\"" + fullname + "\", \"role\":\"" + role
+				+ "\", \"userType\":\"" + userType + "\"}";
+	}
+
 	private String id;
 	private String username;
 	private String password;

@@ -11,8 +11,8 @@ import com.techland.paypay.user.contracts.User;
 public final class GeneralUser implements User {
 
 	@Override
-	public void openAccount(AddUserCommand user) {
-		// TODO Auto-generated method stub
+	public String openAccount(AddUserCommand user) {
+		return null;
 		
 	}
 

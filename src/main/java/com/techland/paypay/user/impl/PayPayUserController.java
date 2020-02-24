@@ -11,6 +11,7 @@ import com.techland.paypay.user.commands.LoginCommand;
 import com.techland.paypay.user.contracts.User;
 import com.techland.paypay.user.helper.Constants;
 import com.techland.paypay.user.responses.ServiceResponse;
+import com.techland.paypay.user.users.Customer;
 import com.techland.paypay.user.users.GeneralUser;
 import com.techland.paypay.user.users.UserFactory;
 import com.techland.paypay.user.users.UserTypes;
@@ -39,11 +40,13 @@ public class PayPayUserController {
 		try {
 		
 			User userType = UserFactory.getInstance(UserTypes.valueOf(user.getUserType()));
-			userType.openAccount(user);
+				
+			String eventId  = userType.openAccount(user);
 
 			resp.setMessaged(Constants.SUCESS_MESSAGE);
 			resp.setResponseCode(Constants.SUCESS_CODE);
 			resp.setSuccess(true);
+			resp.setEventId(eventId);
 			
 			logfeed.getInstance(Constants.SUCESS_MESSAGE,PayPayUserController.class,user.toString()).process();
 		
