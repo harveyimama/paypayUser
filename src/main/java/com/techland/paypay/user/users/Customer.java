@@ -21,25 +21,20 @@ import com.techland.paypay.user.util.LogFeed;
 public final class Customer implements User {
 
 	
-	private UserMessenger<UserAddedEvent> addUserMessenger;
-	private UserMessenger<UserStatusChangedEvent> userStatusChangedessenger;
-	private UserPayLoad<UserAddedEvent>  userAddedPayload;
-	private UserPayLoad<UserStatusChangedEvent>  userStatusChangedPayload;
+	private UserMessenger addUserMessenger;
+	private UserPayLoad userAddedPayload;
 	private LogFeed logfeed;
 	private UserStatusChangedEvent userStatusChangedEvent;
 
 
-	public Customer( UserMessenger<UserAddedEvent> addUserMessenger, UserPayLoad<UserAddedEvent>  userAddedPayload
-			,LogFeed logfeed,UserStatusChangedEvent userStatusChangedEvent,
-			 UserPayLoad<UserStatusChangedEvent>  userStatusChangedPayload,
-			 UserMessenger<UserStatusChangedEvent> userStatusChangedessenger) {
+	public Customer( UserMessenger addUserMessenger, UserPayLoad userAddedPayload
+			,LogFeed logfeed,UserStatusChangedEvent userStatusChangedEvent) {
 
 		this.addUserMessenger = addUserMessenger;
 		this.userAddedPayload = userAddedPayload;
 		this.logfeed = logfeed;
 		this.userStatusChangedEvent = userStatusChangedEvent;
-		this.userStatusChangedPayload = userStatusChangedPayload;
-		this.userStatusChangedessenger = userStatusChangedessenger;
+	
 	}
 
 	
@@ -47,13 +42,13 @@ public final class Customer implements User {
 
 	@Override
 	public String openAccount(AddUserCommand user) {
+		
+		UserAddedEvent event =	new UserAddedEvent(user.getUserType(), user.getId(), user.getUsername(),
+				user.getPassword(), user.getEmail(), user.getFullname(), user.getRole(), Status.EMAILNOTVERIFIED.getName());	
 
 		try {
 			
 			ExecutorService executer = PayPayThread.startThreader();
-			
-			UserAddedEvent event =	new UserAddedEvent(user.getUserType(), user.getId(), user.getUsername(),
-					user.getPassword(), user.getEmail(), user.getFullname(), user.getRole(), Status.EMAILNOTVERIFIED.getName());		
 	
 			userAddedPayload.setUserEvent(event);
 			userAddedPayload.setUserEventId(user.getId());
@@ -70,7 +65,7 @@ public final class Customer implements User {
 			logfeed.getInstance(Constants.SERVER_ERROR,Customer.class,user.toString(),e.getMessage()).process();
 			
 		}
-		return userAddedPayload.getEventId();
+		return event.getEventId();
 		
 	}
 
@@ -92,7 +87,7 @@ public final class Customer implements User {
 	public void updateAccountStatus(StatusChangeCommand statusCommand) {
 	try {
 
-			ExecutorService executer = PayPayThread.startThreader();			
+			/*ExecutorService executer = PayPayThread.startThreader();			
 			userStatusChangedEvent.setStatus(statusCommand.getStatus().getName());				
 	
 			userStatusChangedPayload.setUserEvent(userStatusChangedEvent);
@@ -103,7 +98,7 @@ public final class Customer implements User {
 					userStatusChangedessenger.sendMessage(userStatusChangedPayload); 
 				}
 			} );
-			
+			*/
 			logfeed.getInstance(Constants.SUCESS_MESSAGE,Customer.class,statusCommand.toString()).process();
 					
 		} catch (Exception e) {

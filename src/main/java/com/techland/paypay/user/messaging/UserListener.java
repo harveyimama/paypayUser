@@ -22,20 +22,21 @@ import com.techland.paypay.user.util.MonitorFeed;
 public class UserListener {
 	private UserEntity entity;
 	private LogFeed logfeed;
+	private MonitorFeed monitorFeed ;
 
-	private UserListener(UserEntity entity, LogFeed logfeed) {
+	private UserListener(final UserEntity entity,final LogFeed logfeed,final MonitorFeed monitorFeed ) {
 		this.entity = entity;
 		this.logfeed = logfeed;
+		this.monitorFeed = monitorFeed;
 	}
 
 	@StreamListener(Constants.USERIN)
-	public <T extends UserEvent> void handleEvent(@Payload UserPayLoad<T> payload) {
+	public void handleEvent(@Payload UserPayLoad payload) {
 		System.out.println("Im listening .......");
 
 		try {
-			MonitorFeed<T> monitorFeed = new MonitorFeed<T>();
 
-			boolean ret  = entity.addEvent(payload.getUserEventId(), payload.getUserEvent(), payload.getEventId());
+			boolean ret  = entity.addEvent(payload.getUserEventId(), payload.getUserEvent(), payload.getUserEvent().getEventId());
 			
 			if(ret)
 			{
@@ -56,7 +57,7 @@ public class UserListener {
 		}
 	}
 
-	private <T extends UserEvent> void pushToSubscribers(final UserPayLoad<T> user, MonitorFeed<T> monitorFeed) {
+	private  void pushToSubscribers(final UserPayLoad user, MonitorFeed monitorFeed) {
 
 		List<Subscriber> subscribers = SubscriberFactory.getInstance(user.getUserEvent());
 
@@ -72,8 +73,8 @@ public class UserListener {
 
 	}
 
-	private <T extends UserEvent> void processSubscriber(UserPayLoad<T> payload, Subscriber sub,
-			MonitorFeed<T> monitorFeed) {
+	private  void processSubscriber(UserPayLoad payload, Subscriber sub,
+			MonitorFeed monitorFeed) {
 		ExecutorService executer = PayPayThread.startThreader();
 
 		executer.execute(new Runnable() {
@@ -95,8 +96,8 @@ public class UserListener {
 		});
 	}
 
-	private <T extends UserEvent> void processSubscriber(UserPayLoad<T> payload, Subscriber sub, UserState state,
-			MonitorFeed<T> monitorFeed) {
+	private <T extends UserEvent> void processSubscriber(UserPayLoad payload, Subscriber sub, UserState state,
+			MonitorFeed monitorFeed) {
 		ExecutorService executer = PayPayThread.startThreader();
 
 		executer.execute(new Runnable() {
