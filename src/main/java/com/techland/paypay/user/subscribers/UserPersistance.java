@@ -1,12 +1,14 @@
 package com.techland.paypay.user.subscribers;
 
+import org.springframework.stereotype.Component;
+
 import com.techland.paypay.user.contracts.StateSubscriber;
 import com.techland.paypay.user.impl.UserState;
 import com.techland.paypay.user.persistence.StateFailure;
 import com.techland.paypay.user.persistence.StateFailureRepository;
 import com.techland.paypay.user.persistence.User;
 import com.techland.paypay.user.persistence.UserRepository;
-
+@Component
 public class UserPersistance  implements StateSubscriber {
 	
 	private User user;
@@ -42,6 +44,7 @@ public class UserPersistance  implements StateSubscriber {
 				handleSuccess(userState,failure,failureRepo);
 			
 		} catch (Exception e) {
+			e.printStackTrace();
 			handleError(userState,failure,failureRepo);
 		}	
 		

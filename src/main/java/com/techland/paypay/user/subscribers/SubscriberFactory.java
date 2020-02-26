@@ -1,6 +1,9 @@
 package com.techland.paypay.user.subscribers;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.stereotype.Component;
 
 import com.techland.paypay.user.contracts.EventSubscriber;
 import com.techland.paypay.user.contracts.StateSubscriber;
@@ -8,26 +11,27 @@ import com.techland.paypay.user.contracts.Subscriber;
 import com.techland.paypay.user.contracts.UserEvent;
 import com.techland.paypay.user.events.UserAddedEvent;
 import com.techland.paypay.user.events.UserStatusChangedEvent;
-
+@Component
 public class SubscriberFactory {
-	private static Emailer emailer;
-	private static UserPersistance userPersistance;
+	private  Emailer emailer;
+	private  UserPersistance userPersistance;
 
-	private static List<Subscriber> list;
-	private static List<EventSubscriber> AllEventlist;
-	private static List<StateSubscriber> AllStatelist;
+	private  List<Subscriber> list = new ArrayList<Subscriber>();
+	private  List<EventSubscriber> AllEventlist = new ArrayList<EventSubscriber>();
+	private  List<StateSubscriber> AllStatelist = new ArrayList<StateSubscriber>();
 
-	private SubscriberFactory(Emailer emailers, UserPersistance userPersistances) {
-		emailer = emailers;
-		userPersistance = userPersistances;
+	public SubscriberFactory(Emailer emailer, UserPersistance userPersistance) {
+		this.emailer = emailer;
+		this.userPersistance = userPersistance;
+
 	}
 
-	public static <R extends UserEvent> List<Subscriber> getInstance(R userEvent) {
+	public  <R extends UserEvent> List<Subscriber> getInstance(R userEvent) {
 		if (userEvent instanceof UserAddedEvent) {
 			list.add(emailer);
 			list.add(userPersistance);
 		}
-		
+
 		if (userEvent instanceof UserStatusChangedEvent) {
 			list.add(userPersistance);
 		}
@@ -35,23 +39,22 @@ public class SubscriberFactory {
 		return list;
 	}
 
-	public static List<EventSubscriber> getAllEventSubscribers() {
-		
+	public  List<EventSubscriber> getAllEventSubscribers() {
+
 		if (AllEventlist.isEmpty()) {
-			
+
 			AllEventlist.add(emailer);
-			
+
 		}
 		return AllEventlist;
 	}
-	
-	
-public static List<StateSubscriber> getAllStateSubscribers() {
-		
+
+	public  List<StateSubscriber> getAllStateSubscribers() {
+
 		if (AllStatelist.isEmpty()) {
-			
+
 			AllStatelist.add(userPersistance);
-			
+
 		}
 		return AllStatelist;
 	}

@@ -3,21 +3,24 @@ spring:
     allow-bean-definition-overriding: true 
   cloud:
     stream:
+      default-binder: kafka
       kafka:
         binder:
           brokers: localhost
           defaultBrokerPort: 9092
       bindings:
-        user-in:
+        userpayload-in:
           destination: userpayload
           contentType: application/json
-        user-out:
+        userpayload-out:
           destination: userpayload
-          contentType: application/json
-      default-binder: kafka
+          contentType: application/json     
   data:
     cassandra:
-      contact-points: 127.0.0.1
+      keyspaceName: paypayUserKeySpace
+      contactPoints: 127.0.0.1
+      port: 9042
+      schemaAction: CREATE_IF_NOT_EXISTS
       username: harvey
       password: harvey 
     jpa:

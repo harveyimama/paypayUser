@@ -39,9 +39,22 @@ public final class UserEntity {
 	}
 
 	public UserState getState(final String userId) {
-		snapshot = getSnapshot(userId).get();
-		List<Journal> events = getEvents(snapshot.getJournalId(), userId);
+		
+		Optional<Snapshot> sshot = getSnapshot(userId);
+		List<Journal> events = null;
+		
+		if(sshot.isPresent())
+			events = getEvents(sshot.get().getJournalId(), userId);
+		else
+			events = getAllEvents(userId);
+		
 		UserState userState = new UserState();
+		if(events.stream().count() ==0)
+		{
+			return userState.getState(snapshot.getUserState());
+		}
+		
+		
 		events.stream().forEach(event -> {
 			userState.addEvent(event.getUserEvent());
 		});
@@ -54,7 +67,7 @@ public final class UserEntity {
 	}
 
 	private Optional<Snapshot> getSnapshot(final String userId) {
-		return snapshotRepository.findById(userId);
+		return snapshotRepository.findBySnapshotUserId(userId);
 	}
 
 	public boolean ifExists(final String userId) {
@@ -68,6 +81,12 @@ public final class UserEntity {
 	private List<Journal> getEvents(final String eventId, final String userId) {
 
 		return journalRepository.findAllByUserIdAndEventIdGreaterThan(userId, eventId);
+
+	}
+	
+	private List<Journal> getAllEvents( final String userId) {
+
+		return journalRepository.findAllByUserId(userId);
 
 	}
 
@@ -96,9 +115,15 @@ public final class UserEntity {
 			public void run() {
 
 				Optional<Snapshot> sshot = getSnapshot(id);
-				List<Journal> events = getEvents(sshot.get().getJournalId(), id);
+				List<Journal> events = null;
+				
+				if(sshot.isPresent())
+					events = getEvents(sshot.get().getJournalId(), id);
+				else
+					events = getAllEvents(id);
 
 				if (events.stream().count() >= Settings.CHECKPOINT_LIMIT) {
+					
 					snapshot.setJournalId(journal.getEventId());
 					snapshot.setSnapshotUserId(journal.getUserId());
 					snapshot.setUserState(getState(journal.getUserId()).toString());

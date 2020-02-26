@@ -3,12 +3,11 @@ package com.techland.paypay.user.events;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
-import org.springframework.stereotype.Component;
-
+import org.hibernate.annotations.Immutable;
 import com.techland.paypay.user.config.Settings;
 import com.techland.paypay.user.contracts.UserEvent;
 
-@Component
+@Immutable
 public final class UserStatusChangedEvent implements UserEvent, Serializable {
 
 	/**

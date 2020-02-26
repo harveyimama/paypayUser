@@ -11,5 +11,6 @@ public interface JournalRepository extends  CassandraRepository<Journal,String> 
 	List<Journal> findAllByUserIdAndEventIdGreaterThan(String userId, String eventId);
 
 	Object findByUserId(String userId);
+	List<Journal> findAllByUserId(String userId);
 
 }
