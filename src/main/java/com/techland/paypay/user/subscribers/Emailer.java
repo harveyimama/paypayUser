@@ -7,6 +7,7 @@ import com.techland.paypay.user.contracts.UserEvent;
 import com.techland.paypay.user.events.UserAddedEvent;
 import com.techland.paypay.user.helper.Email;
 import com.techland.paypay.user.helper.Status;
+import com.techland.paypay.user.impl.UserState;
 import com.techland.paypay.user.persistence.EventFailure;
 import com.techland.paypay.user.persistence.EventFailureRepository;
 import com.techland.paypay.user.users.UserFactory;
@@ -16,7 +17,8 @@ import javax.mail.internet.MimeMessage;
 
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-
+import org.springframework.stereotype.Component;
+@Component
 public final class Emailer implements EventSubscriber {
 
 	private EventFailure failure;
@@ -71,6 +73,7 @@ public final class Emailer implements EventSubscriber {
 			userType.updateAccountStatus(statusCommand);
 
 		} catch (Exception e) {
+			e.printStackTrace();
 			handleError(userAdded, failure, failureRepo);
 		}
 
@@ -83,6 +86,8 @@ public final class Emailer implements EventSubscriber {
 		failure.setEventSubscriber(this.getClass().getSimpleName());
 		failureRepo.save(failure);
 	}
+
+	
 
 	
 }

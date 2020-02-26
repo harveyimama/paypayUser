@@ -21,18 +21,20 @@ public class PayPayUserScheduler {
 	private EventFailureRepository eventRepo;
 	private StateFailureRepository stateRepo;
 	private UserEntity user;
+	private SubscriberFactory subscriberFactory;
 
 	PayPayUserScheduler(final EventFailureRepository eventRepo, final StateFailureRepository stateRepo,
-			final UserEntity user) {
+			final UserEntity user,SubscriberFactory subscriberFactory) {
 		this.eventRepo = eventRepo;
 		this.stateRepo = stateRepo;
 		this.user = user;
+		this.subscriberFactory = subscriberFactory;
 	}
 
 	@Scheduled(fixedRate = 1800000)
 	public void eventSelfHeal() {
 
-		List<EventSubscriber> subscribers = SubscriberFactory.getAllEventSubscribers();
+		List<EventSubscriber> subscribers = subscriberFactory.getAllEventSubscribers();
 
 		subscribers.stream().forEach(subscriber -> {
 	
@@ -51,7 +53,7 @@ public class PayPayUserScheduler {
 	@Scheduled(fixedRate = 1800000)
 	public void stateSelfHeal() {
 
-		List<StateSubscriber> subscribers = SubscriberFactory.getAllStateSubscribers();
+		List<StateSubscriber> subscribers = subscriberFactory.getAllStateSubscribers();
 
 		subscribers.stream().forEach(subscriber -> {
 

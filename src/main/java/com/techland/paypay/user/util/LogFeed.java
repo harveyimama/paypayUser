@@ -35,7 +35,10 @@ public class LogFeed {
 		
 			for(String info : this.otherInfo)
 			{
+				if(info != null)
 				returnString = returnString.concat(info).concat("|");
+				else
+					returnString = returnString.concat("Null info received").concat("|");
 			}
 			returnString =	returnString.concat(" =======> ").concat(info);
 		

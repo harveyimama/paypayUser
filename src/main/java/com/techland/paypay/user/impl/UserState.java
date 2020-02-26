@@ -95,7 +95,7 @@ public class UserState {
 			this.setPassword(actualObj.get("password").asText());
 			this.setRole(actualObj.get("role").asText());
 			this.setUsername(actualObj.get("username").asText());
-			this.setUserType(actualObj.get("usertype").asText());
+			this.setUserType(actualObj.get("userType").asText());
 			this.setStatus(Status.EMAILNOTVERIFIED.getName());
 			}
 			
@@ -111,6 +111,30 @@ public class UserState {
 		return success;
 	}
 
+	
+	public  UserState getState(String state) 
+	{ 
+		
+		try {
+			ObjectMapper mapper = new ObjectMapper();
+			JsonNode actualObj = mapper.readTree(state);
+  
+			this.setEmail(actualObj.get("email").asText());
+			this.setFullname(actualObj.get("fullname").asText());
+			this.setId(actualObj.get("id").asText());
+			this.setPassword(actualObj.get("password").asText());
+			this.setRole(actualObj.get("role").asText());
+			this.setUsername(actualObj.get("username").asText());
+			this.setUserType(actualObj.get("usertype").asText());
+			this.setStatus(actualObj.get("status").asText());
+			
+		
+		} catch (Exception e) {
+			e.printStackTrace();	
+		}
+		
+		return this;
+	}
 
 
 	@Override

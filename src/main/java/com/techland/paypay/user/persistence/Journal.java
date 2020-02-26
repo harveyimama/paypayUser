@@ -14,12 +14,15 @@ public class Journal  {
 	 @PrimaryKeyColumn(
 		      name = "eventId", 
 		      ordinal = 2, 
-		      type = PrimaryKeyType.PARTITIONED, 
+		      type = PrimaryKeyType.CLUSTERED, 
 		      ordering = Ordering.DESCENDING)
 	private String eventId;
 	 @Column
 	private String userEvent;
-	 @Column
+	 @PrimaryKeyColumn(
+		      name = "userId", 
+		      ordinal = 1, 
+		      type = PrimaryKeyType.PARTITIONED)
 	private String userId;
 	
 		

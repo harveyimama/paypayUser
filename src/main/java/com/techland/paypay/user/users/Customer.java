@@ -24,16 +24,16 @@ public final class Customer implements User {
 	private UserMessenger addUserMessenger;
 	private UserPayLoad userAddedPayload;
 	private LogFeed logfeed;
-	private UserStatusChangedEvent userStatusChangedEvent;
+	//private UserStatusChangedEvent userStatusChangedEvent;
 
 
 	public Customer( UserMessenger addUserMessenger, UserPayLoad userAddedPayload
-			,LogFeed logfeed,UserStatusChangedEvent userStatusChangedEvent) {
+			,LogFeed logfeed/*,UserStatusChangedEvent userStatusChangedEvent*/) {
 
 		this.addUserMessenger = addUserMessenger;
 		this.userAddedPayload = userAddedPayload;
 		this.logfeed = logfeed;
-		this.userStatusChangedEvent = userStatusChangedEvent;
+		//this.userStatusChangedEvent = userStatusChangedEvent;
 	
 	}
 
@@ -51,7 +51,7 @@ public final class Customer implements User {
 			ExecutorService executer = PayPayThread.startThreader();
 	
 			userAddedPayload.setUserEvent(event);
-			userAddedPayload.setUserEventId(user.getId());
+			
 							
 			executer.execute(new Runnable() {	
 				@Override public void run() {

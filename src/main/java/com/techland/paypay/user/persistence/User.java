@@ -5,9 +5,12 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import org.springframework.stereotype.Component;
+
 import com.techland.paypay.user.commands.AddUserCommand;
 
 @Entity
+@Component
 public class User implements Serializable {
 	
 	

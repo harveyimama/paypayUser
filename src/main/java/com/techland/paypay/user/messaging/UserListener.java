@@ -5,6 +5,7 @@ import java.util.concurrent.ExecutorService;
 
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.stereotype.Component;
 
 import com.techland.paypay.user.config.PayPayThread;
 import com.techland.paypay.user.contracts.EventSubscriber;
@@ -19,24 +20,29 @@ import com.techland.paypay.user.subscribers.SubscriberFactory;
 import com.techland.paypay.user.util.LogFeed;
 import com.techland.paypay.user.util.MonitorFeed;
 
+@Component
 public class UserListener {
 	private UserEntity entity;
 	private LogFeed logfeed;
 	private MonitorFeed monitorFeed ;
+	private SubscriberFactory subscriberFactory;
+	
 
-	private UserListener(final UserEntity entity,final LogFeed logfeed,final MonitorFeed monitorFeed ) {
+	public UserListener(final UserEntity entity,final LogFeed logfeed,final MonitorFeed monitorFeed,SubscriberFactory subscriberFactory ) {
 		this.entity = entity;
 		this.logfeed = logfeed;
 		this.monitorFeed = monitorFeed;
+		this.subscriberFactory = subscriberFactory;
 	}
 
-	@StreamListener(Constants.USERIN)
+	@StreamListener(target = Constants.USERIN)
 	public void handleEvent(@Payload UserPayLoad payload) {
 		System.out.println("Im listening .......");
+		System.out.println(payload.toString());
 
 		try {
 
-			boolean ret  = entity.addEvent(payload.getUserEventId(), payload.getUserEvent(), payload.getUserEvent().getEventId());
+			boolean ret  = entity.addEvent(payload.getUserEvent().getId(), payload.getUserEvent(), payload.getUserEvent().getEventId());
 			
 			if(ret)
 			{
@@ -51,6 +57,7 @@ public class UserListener {
 			}
 
 		} catch (Exception e) {
+			e.printStackTrace();
 			logfeed.getInstance(Constants.SERVER_ERROR, UserListener.class, payload.toString(), e.getMessage())
 					.process();
 
@@ -59,10 +66,10 @@ public class UserListener {
 
 	private  void pushToSubscribers(final UserPayLoad user, MonitorFeed monitorFeed) {
 
-		List<Subscriber> subscribers = SubscriberFactory.getInstance(user.getUserEvent());
+		List<Subscriber> subscribers = subscriberFactory.getInstance(user.getUserEvent());
 
-		UserState userState = entity.getState(user.getUserEventId());
-
+		UserState userState = entity.getState(user.getUserEvent().getId());
+		
 		for (Subscriber sub : subscribers) {
 
 			if (sub.isState())
@@ -83,7 +90,7 @@ public class UserListener {
 
 				try {
 
-					((EventSubscriber) sub).process(payload.getUserEvent());
+					 sub.process(payload.getUserEvent());
 					monitorFeed.getInstance(payload, sub.getClass().getSimpleName()).process();
 					logfeed.getInstance(Constants.SUCESS_MESSAGE, sub.getClass(), payload.toString()).process();
 
@@ -105,7 +112,7 @@ public class UserListener {
 			public void run() {
 
 				try {
-					((StateSubscriber) sub).process(state);
+					sub.process(state);
 					monitorFeed.getInstance(payload, sub.getClass().getSimpleName()).process();
 					logfeed.getInstance(Constants.SUCESS_MESSAGE, sub.getClass(), payload.toString()).process();
 				} catch (Exception e) {

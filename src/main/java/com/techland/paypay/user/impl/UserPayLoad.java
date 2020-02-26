@@ -7,7 +7,7 @@ import com.techland.paypay.user.events.UserAddedEvent;
 @Component
 public class UserPayLoad {
 	private UserAddedEvent userEvent;
-	private String userEventId;
+
 
 	public UserAddedEvent getUserEvent() {
 		return userEvent;
@@ -17,12 +17,6 @@ public class UserPayLoad {
 		this.userEvent = userEvent;
 	}
 
-	public String getUserEventId() {
-		return userEventId;
-	}
-
-	public void setUserEventId(String userEventId) {
-		this.userEventId = userEventId;
-	}
+	
 
 }
