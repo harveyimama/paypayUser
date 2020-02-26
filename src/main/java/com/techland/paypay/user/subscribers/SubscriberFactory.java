@@ -2,6 +2,7 @@ package com.techland.paypay.user.subscribers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.stereotype.Component;
 
@@ -16,9 +17,10 @@ public class SubscriberFactory {
 	private  Emailer emailer;
 	private  UserPersistance userPersistance;
 
-	private  List<Subscriber> list = new ArrayList<Subscriber>();
-	private  List<EventSubscriber> AllEventlist = new ArrayList<EventSubscriber>();
-	private  List<StateSubscriber> AllStatelist = new ArrayList<StateSubscriber>();
+
+	private  ConcurrentHashMap<String,List<? extends Subscriber>> finalList = new ConcurrentHashMap<>();
+	private  List<EventSubscriber> eventlist = new ArrayList<EventSubscriber>();
+	private  List<StateSubscriber> statelist = new ArrayList<StateSubscriber>();
 
 	public SubscriberFactory(Emailer emailer, UserPersistance userPersistance) {
 		this.emailer = emailer;
@@ -26,37 +28,50 @@ public class SubscriberFactory {
 
 	}
 
-	public  <R extends UserEvent> List<Subscriber> getInstance(R userEvent) {
+	public  <R extends UserEvent>  ConcurrentHashMap<String,List<? extends Subscriber>> getInstance(R userEvent) {
 		if (userEvent instanceof UserAddedEvent) {
-			list.add(emailer);
-			list.add(userPersistance);
+			eventlist.add(emailer);
+			statelist.add(userPersistance);			
 		}
 
 		if (userEvent instanceof UserStatusChangedEvent) {
-			list.add(userPersistance);
+			statelist.add(userPersistance);
 		}
-
-		return list;
+		
+		return	getFinalList();
+			
 	}
 
 	public  List<EventSubscriber> getAllEventSubscribers() {
 
-		if (AllEventlist.isEmpty()) {
+		if (eventlist.isEmpty()) {
 
-			AllEventlist.add(emailer);
+			eventlist.add(emailer);
 
 		}
-		return AllEventlist;
+		return eventlist;
 	}
 
 	public  List<StateSubscriber> getAllStateSubscribers() {
 
-		if (AllStatelist.isEmpty()) {
+		if (statelist.isEmpty()) {
 
-			AllStatelist.add(userPersistance);
+			statelist.add(userPersistance);
 
 		}
-		return AllStatelist;
+		return statelist;
+	}
+	
+	
+	private ConcurrentHashMap<String,List<? extends Subscriber>> getFinalList ()
+	{
+		if (eventlist != null)
+		finalList.put("events",eventlist);
+		
+		if (statelist != null)
+		finalList.put("states",statelist);
+		
+		return finalList;
 	}
 
 }

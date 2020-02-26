@@ -1,6 +1,8 @@
 package com.techland.paypay.user.messaging;
 
+import java.lang.reflect.Field;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 
 import org.springframework.cloud.stream.annotation.StreamListener;
@@ -24,11 +26,11 @@ import com.techland.paypay.user.util.MonitorFeed;
 public class UserListener {
 	private UserEntity entity;
 	private LogFeed logfeed;
-	private MonitorFeed monitorFeed ;
+	private MonitorFeed monitorFeed;
 	private SubscriberFactory subscriberFactory;
-	
 
-	public UserListener(final UserEntity entity,final LogFeed logfeed,final MonitorFeed monitorFeed,SubscriberFactory subscriberFactory ) {
+	public UserListener(final UserEntity entity, final LogFeed logfeed, final MonitorFeed monitorFeed,
+			SubscriberFactory subscriberFactory) {
 		this.entity = entity;
 		this.logfeed = logfeed;
 		this.monitorFeed = monitorFeed;
@@ -38,22 +40,19 @@ public class UserListener {
 	@StreamListener(target = Constants.USERIN)
 	public void handleEvent(@Payload UserPayLoad payload) {
 		System.out.println("Im listening .......");
-		System.out.println(payload.toString());
 
 		try {
+	
+			boolean ret = entity.addEvent(payload.getUserEvent().getId(), payload.getUserEvent(),
+					payload.getUserEvent().getEventId());
 
-			boolean ret  = entity.addEvent(payload.getUserEvent().getId(), payload.getUserEvent(), payload.getUserEvent().getEventId());
-			
-			if(ret)
-			{
-			pushToSubscribers(payload, monitorFeed);
-			monitorFeed.getInstance(payload, Constants.USEROUT).process();
-			logfeed.getInstance(Constants.SUCESS_MESSAGE, UserListener.class, payload.toString()).process();
-			}
-			else
-			{
+			if (ret) {
+				pushToSubscribers(payload, monitorFeed);
 				monitorFeed.getInstance(payload, Constants.USEROUT).process();
-				logfeed.getInstance(Constants.SOURCE_ERROR, UserListener.class, payload.toString()).process();	
+				logfeed.getInstance(Constants.SUCESS_MESSAGE, UserListener.class, payload.toString()).process();
+			} else {
+				monitorFeed.getInstance(payload, Constants.USEROUT).process();
+				logfeed.getInstance(Constants.SOURCE_ERROR, UserListener.class, payload.toString()).process();
 			}
 
 		} catch (Exception e) {
@@ -64,24 +63,24 @@ public class UserListener {
 		}
 	}
 
-	private  void pushToSubscribers(final UserPayLoad user, MonitorFeed monitorFeed) {
+	private void pushToSubscribers(final UserPayLoad user, MonitorFeed monitorFeed) {
 
-		List<Subscriber> subscribers = subscriberFactory.getInstance(user.getUserEvent());
+		ConcurrentHashMap<String, List<? extends Subscriber>> subscribers = subscriberFactory
+				.getInstance(user.getUserEvent());
 
 		UserState userState = entity.getState(user.getUserEvent().getId());
-		
-		for (Subscriber sub : subscribers) {
 
-			if (sub.isState())
-				processSubscriber(user, sub, monitorFeed);
-			else
-				processSubscriber(user, sub, userState, monitorFeed);
-		}
+		subscribers.get("events").stream().forEach(sub -> {
+			processSubscriber(user, (EventSubscriber) sub, monitorFeed);
+		});
+
+		subscribers.get("states").stream().forEach(sub -> {
+			processSubscriber(user, (StateSubscriber) sub, userState, monitorFeed);
+		});
 
 	}
 
-	private  void processSubscriber(UserPayLoad payload, Subscriber sub,
-			MonitorFeed monitorFeed) {
+	private void processSubscriber(UserPayLoad payload, EventSubscriber sub, MonitorFeed monitorFeed) {
 		ExecutorService executer = PayPayThread.startThreader();
 
 		executer.execute(new Runnable() {
@@ -90,7 +89,7 @@ public class UserListener {
 
 				try {
 
-					 sub.process(payload.getUserEvent());
+					sub.process(payload.getUserEvent());
 					monitorFeed.getInstance(payload, sub.getClass().getSimpleName()).process();
 					logfeed.getInstance(Constants.SUCESS_MESSAGE, sub.getClass(), payload.toString()).process();
 
@@ -103,7 +102,7 @@ public class UserListener {
 		});
 	}
 
-	private <T extends UserEvent> void processSubscriber(UserPayLoad payload, Subscriber sub, UserState state,
+	private <T extends UserEvent> void processSubscriber(UserPayLoad payload, StateSubscriber sub, UserState state,
 			MonitorFeed monitorFeed) {
 		ExecutorService executer = PayPayThread.startThreader();
 
