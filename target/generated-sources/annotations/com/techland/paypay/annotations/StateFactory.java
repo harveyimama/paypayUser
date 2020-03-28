@@ -1,0 +1,1 @@
+package com.techland.paypay.annotations;import com.techland.paypay.contracts.PayPayState;import com.techland.paypay.user.impl.UserState;public class StateFactory { public PayPayState getState(){ return (PayPayState) new UserState(); } }
