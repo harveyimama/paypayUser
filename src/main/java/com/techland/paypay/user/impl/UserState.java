@@ -3,10 +3,11 @@ package com.techland.paypay.user.impl;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.techland.paypay.contracts.PayPayState;
 import com.techland.paypay.contracts.TechLandState;
 import com.techland.paypay.user.helper.Status;
 @TechLandState
-public class UserState {
+public class UserState implements PayPayState {
 	
 	/**
 	 * 
@@ -79,8 +80,8 @@ public class UserState {
 		this.status = status;
 	}
 	
-	
-	public  boolean addEvent(String event) 
+	@Override
+	public  void addEvent(String event) 
 	{ 
 		boolean success = false;
 		try {
@@ -108,11 +109,10 @@ public class UserState {
 		} catch (Exception e) {
 			e.printStackTrace();	
 		}
-		
-		return success;
+	
 	}
 
-	
+	@Override
 	public  UserState getState(String state) 
 	{ 
 		
