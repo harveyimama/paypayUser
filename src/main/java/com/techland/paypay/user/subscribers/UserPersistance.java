@@ -13,7 +13,7 @@ import com.techland.paypay.user.impl.UserState;
 import com.techland.paypay.user.persistence.User;
 import com.techland.paypay.user.persistence.UserRepository;
 @Component
-@TechLandSubscriber(events = {"UserAddedEvent","UserStatusChangedEvent"},isstate=true)
+@TechLandSubscriber(events = {"User.UserAddedEvent"},isstate=true)
 public class UserPersistance  implements StateSubscriber {
 	@Autowired
 	private User user;
