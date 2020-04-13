@@ -8,7 +8,11 @@ import com.techland.paypay.user.helper.Status;
 
 @TechLandState
 public class UserState implements PayPayState {
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> 7e68b3d61c30fea8f28c44eda299cf0934a677e1
 	/**
 	 * 
 	 */
@@ -89,10 +93,18 @@ public class UserState implements PayPayState {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+<<<<<<< HEAD
 
 	@Override
 	public void addEvent(String event) {
 
+=======
+	
+	@Override
+	public  void addEvent(String event) 
+	{ 
+		boolean success = false;
+>>>>>>> 7e68b3d61c30fea8f28c44eda299cf0934a677e1
 		try {
 			ObjectMapper mapper = new ObjectMapper();
 			JsonNode actualObj = mapper.readTree(event);
@@ -111,12 +123,22 @@ public class UserState implements PayPayState {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+<<<<<<< HEAD
 
 	}
 
 	@Override
 	public UserState getState(String state) {
 
+=======
+	
+	}
+
+	@Override
+	public  UserState getState(String state) 
+	{ 
+		
+>>>>>>> 7e68b3d61c30fea8f28c44eda299cf0934a677e1
 		try {
 			ObjectMapper mapper = new ObjectMapper();
 			JsonNode actualObj = mapper.readTree(state);
