@@ -26,7 +26,7 @@ public class Processor {
 		u.setRole(user.getRole());
 		u.setStatus(user.getStatus());
 		u.setUsername(user.getUsername());
-		u.setUserType(user.getUserType());
+
 		
 		return u;
 	}

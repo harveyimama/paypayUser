@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /Users/harveyimama/eclipse-workspace/paypayUser/src/main/java/com/techland/paypay/user/persistence/User.java
 /Users/harveyimama/eclipse-workspace/paypayUser/src/main/java/com/techland/paypay/user/helper/Settings.java
 /Users/harveyimama/eclipse-workspace/paypayUser/src/main/java/com/techland/paypay/user/commands/LoginCommand.java
@@ -10,36 +9,11 @@
 /Users/harveyimama/eclipse-workspace/paypayUser/src/main/java/com/techland/paypay/user/impl/UserState.java
 /Users/harveyimama/eclipse-workspace/paypayUser/src/main/java/com/techland/paypay/user/UserScheduler.java
 /Users/harveyimama/eclipse-workspace/paypayUser/src/main/java/com/techland/paypay/user/factories/EventFactory.java
-/Users/harveyimama/eclipse-workspace/paypayUser/src/main/java/com/techland/paypay/user/events/UserAddedEvent.java
 /Users/harveyimama/eclipse-workspace/paypayUser/src/main/java/com/techland/paypay/user/persistence/UserRepository.java
 /Users/harveyimama/eclipse-workspace/paypayUser/src/main/java/com/techland/paypay/user/subscribers/UserPersistance.java
 /Users/harveyimama/eclipse-workspace/paypayUser/src/main/java/com/techland/paypay/user/factories/StateFactory.java
 /Users/harveyimama/eclipse-workspace/paypayUser/src/main/java/com/techland/paypay/user/commands/UserSecurity.java
 /Users/harveyimama/eclipse-workspace/paypayUser/src/main/java/com/techland/paypay/user/PayPayUserApplication.java
 /Users/harveyimama/eclipse-workspace/paypayUser/src/main/java/com/techland/paypay/user/impl/Controller.java
+/Users/harveyimama/eclipse-workspace/paypayUser/src/main/java/com/techland/paypay/user/events/MerchantUserAddedEvent.java
 /Users/harveyimama/eclipse-workspace/paypayUser/src/main/java/com/techland/paypay/user/helper/Status.java
-=======
-C:\lagom_workSpace\paypayUser\src\main\java\com\techland\paypay\user\helper\ExternalURL.java
-C:\lagom_workSpace\paypayUser\src\main\java\com\techland\paypay\user\helper\Settings.java
-C:\lagom_workSpace\paypayUser\src\main\java\com\techland\paypay\user\impl\UserListener.java
-C:\lagom_workSpace\paypayUser\src\main\java\com\techland\paypay\user\UserScheduler.java
-C:\lagom_workSpace\paypayUser\src\main\java\com\techland\paypay\user\impl\UserEntity.java
-C:\lagom_workSpace\paypayUser\src\main\java\com\techland\paypay\user\helper\Status.java
-C:\lagom_workSpace\paypayUser\src\main\java\com\techland\paypay\user\subscribers\UserPersistance.java
-C:\lagom_workSpace\paypayUser\src\main\java\com\techland\paypay\user\helper\Email.java
-C:\lagom_workSpace\paypayUser\src\main\java\com\techland\paypay\user\persistence\Processor.java
-C:\lagom_workSpace\paypayUser\src\main\java\com\techland\paypay\user\commands\LoginCommand.java
-C:\lagom_workSpace\paypayUser\src\main\java\com\techland\paypay\user\impl\Controller.java
-C:\lagom_workSpace\paypayUser\src\main\java\com\techland\paypay\user\commands\StatusChangeCommand.java
-C:\lagom_workSpace\paypayUser\src\main\java\com\techland\paypay\user\persistence\User.java
-C:\lagom_workSpace\paypayUser\src\main\java\com\techland\paypay\user\events\UserAddedEvent.java
-C:\lagom_workSpace\paypayUser\src\main\java\com\techland\paypay\user\impl\UserState.java
-C:\lagom_workSpace\paypayUser\src\main\java\com\techland\paypay\user\subscribers\Emailer.java
-C:\lagom_workSpace\paypayUser\src\main\java\com\techland\paypay\user\responses\ServiceResponse.java
-C:\lagom_workSpace\paypayUser\src\main\java\com\techland\paypay\user\events\UserStatusChangedEvent.java
-C:\lagom_workSpace\paypayUser\src\main\java\com\techland\paypay\user\commands\UserSecurity.java
-C:\lagom_workSpace\paypayUser\src\main\java\com\techland\paypay\user\PayPayUserApplication.java
-C:\lagom_workSpace\paypayUser\src\main\java\com\techland\paypay\user\persistence\UserRepository.java
-C:\lagom_workSpace\paypayUser\src\main\java\com\techland\paypay\user\commands\AddUserCommand.java
-C:\lagom_workSpace\paypayUser\src\main\java\com\techland\paypay\user\helper\Constants.java
->>>>>>> 7e68b3d61c30fea8f28c44eda299cf0934a677e1

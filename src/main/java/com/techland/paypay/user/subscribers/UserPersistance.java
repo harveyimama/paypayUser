@@ -13,7 +13,7 @@ import com.techland.paypay.user.impl.UserState;
 import com.techland.paypay.user.persistence.User;
 import com.techland.paypay.user.persistence.UserRepository;
 @Component
-@TechLandSubscriber(events = {"User.UserAddedEvent"},isstate=true)
+@TechLandSubscriber(events = {"MerchantUserAddedEvent"},isstate=true)
 public class UserPersistance  implements StateSubscriber {
 	@Autowired
 	private User user;
@@ -34,8 +34,8 @@ public class UserPersistance  implements StateSubscriber {
 	public void process(final PayPayState userState) {
 				
 		try {
-			
-			user  = setEntity((UserState) userState);
+		
+			User user  = setEntity((UserState) userState);
 			User ret = userRepo.save(user);	
 			
 			if(ret == null)
@@ -62,7 +62,6 @@ public class UserPersistance  implements StateSubscriber {
 		user.setRole(userState.getRole());
 		user.setStatus(userState.getStatus());
 		user.setUsername(userState.getUsername());
-		user.setUserType(userState.getUserType());
 		
 		return user;
 	}

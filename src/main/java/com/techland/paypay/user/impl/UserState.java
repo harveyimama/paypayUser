@@ -1,5 +1,6 @@
 package com.techland.paypay.user.impl;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.techland.paypay.contracts.PayPayState;
@@ -7,18 +8,14 @@ import com.techland.paypay.contracts.TechLandState;
 import com.techland.paypay.user.helper.Status;
 
 @TechLandState
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class UserState implements PayPayState {
-<<<<<<< HEAD
 
-=======
-	
->>>>>>> 7e68b3d61c30fea8f28c44eda299cf0934a677e1
 	/**
 	 * 
 	 */
 
 	private String id;
-	private String userType;
 	private String username;
 	private String password;
 	private String email;
@@ -38,14 +35,7 @@ public class UserState implements PayPayState {
 		this.id = id;
 	}
 
-	public String getUserType() {
-		return userType;
-	}
-
-	public void setUserType(String userType) {
-		this.userType = userType;
-	}
-
+	
 	public String getUsername() {
 		return username;
 	}
@@ -93,52 +83,38 @@ public class UserState implements PayPayState {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-<<<<<<< HEAD
 
 	@Override
-	public void addEvent(String event) {
-
-=======
-	
-	@Override
-	public  void addEvent(String event) 
+	public  UserState addEvent(String event) 
 	{ 
-		boolean success = false;
->>>>>>> 7e68b3d61c30fea8f28c44eda299cf0934a677e1
+
 		try {
 			ObjectMapper mapper = new ObjectMapper();
 			JsonNode actualObj = mapper.readTree(event);
 
-			if (actualObj.get("class").asText().equals("UserAddedEvent")) {
+			if (actualObj.get("class").asText().equals("MerchantUserAddedEvent")) {
 				this.setEmail(actualObj.get("email").asText());
 				this.setFullname(actualObj.get("fullname").asText());
 				this.setId(actualObj.get("id").asText());
 				this.setPassword(actualObj.get("password").asText());
 				this.setRole(actualObj.get("role").asText());
 				this.setUsername(actualObj.get("username").asText());
-				this.setUserType(actualObj.get("userType").asText());
 				this.setStatus(Status.EMAILNOTVERIFIED.getName());
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-<<<<<<< HEAD
+return this;
 
 	}
 
-	@Override
-	public UserState getState(String state) {
 
-=======
-	
-	}
 
 	@Override
 	public  UserState getState(String state) 
 	{ 
-		
->>>>>>> 7e68b3d61c30fea8f28c44eda299cf0934a677e1
+
 		try {
 			ObjectMapper mapper = new ObjectMapper();
 			JsonNode actualObj = mapper.readTree(state);
@@ -149,7 +125,6 @@ public class UserState implements PayPayState {
 			this.setPassword(actualObj.get("password").asText());
 			this.setRole(actualObj.get("role").asText());
 			this.setUsername(actualObj.get("username").asText());
-			this.setUserType(actualObj.get("userType").asText());
 			this.setStatus(actualObj.get("status").asText());
 
 		} catch (Exception e) {
@@ -161,9 +136,11 @@ public class UserState implements PayPayState {
 
 	@Override
 	public String toString() {
-		return "{\"class\":\"UserState\",\"id\":\"" + id + "\", \"userType\":\"" + userType + "\", \"username\":\""
-				+ username + "\", \"password\":\"" + password + "\", \"email\":\"" + email + "\", \"fullname\":\""
-				+ fullname + "\", \"role\":\"" + role + "\", \"status\":\"" + status + "\"}";
+		return "{\"class\":\"UserState\",\"id\":\"" + id + "\", \"username\":\"" + username + "\", \"password\":\""
+				+ password + "\", \"email\":\"" + email + "\", \"fullname\":\"" + fullname + "\", \"role\":\"" + role
+				+ "\", \"status\":\"" + status + "\"}";
 	}
+
+	
 
 }

@@ -1,7 +1,7 @@
-<<<<<<< HEAD
 com/techland/paypay/user/impl/UserState.class
 com/techland/paypay/user/factories/StateFactory.class
 com/techland/paypay/user/UserScheduler.class
+com/techland/paypay/user/events/MerchantUserAddedEvent.class
 com/techland/paypay/user/helper/Constants.class
 com/techland/paypay/user/persistence/User.class
 com/techland/paypay/user/commands/UserSecurity.class
@@ -15,34 +15,5 @@ com/techland/paypay/user/subscribers/UserPersistance.class
 com/techland/paypay/user/persistence/Processor.class
 com/techland/paypay/user/factories/SubscriberFactory.class
 com/techland/paypay/user/helper/Status.class
-com/techland/paypay/user/events/UserAddedEvent.class
 com/techland/paypay/user/impl/Controller.class
 com/techland/paypay/user/impl/UserListener.class
-=======
-com\techland\paypay\annotations\SubscriberFactory.class
-com\techland\paypay\user\impl\Controller.class
-com\techland\paypay\user\persistence\UserRepository.class
-com\techland\paypay\user\commands\StatusChangeCommand.class
-com\techland\paypay\user\commands\UserSecurity.class
-com\techland\paypay\user\subscribers\Emailer.class
-com\techland\paypay\user\events\UserStatusChangedEvent.class
-com\techland\paypay\user\persistence\Processor.class
-com\techland\paypay\user\impl\UserState.class
-com\techland\paypay\user\impl\UserEntity$1.class
-com\techland\paypay\user\helper\Email.class
-com\techland\paypay\user\events\UserAddedEvent.class
-com\techland\paypay\user\helper\ExternalURL.class
-com\techland\paypay\user\PayPayUserApplication.class
-com\techland\paypay\user\persistence\User.class
-com\techland\paypay\user\helper\Settings.class
-com\techland\paypay\user\subscribers\UserPersistance.class
-com\techland\paypay\annotations\EventFactory.class
-com\techland\paypay\user\responses\ServiceResponse.class
-com\techland\paypay\user\commands\LoginCommand.class
-com\techland\paypay\user\helper\Status.class
-com\techland\paypay\user\helper\Constants.class
-com\techland\paypay\user\impl\UserListener.class
-com\techland\paypay\user\UserScheduler.class
-com\techland\paypay\user\impl\UserEntity.class
-com\techland\paypay\user\commands\AddUserCommand.class
->>>>>>> 7e68b3d61c30fea8f28c44eda299cf0934a677e1

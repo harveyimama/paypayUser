@@ -18,7 +18,7 @@ public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	private String id;
-	private  String userType;
+	@Column(unique=true)
 	private  String username;
 	private  String password;
 	@Column(unique=true)
@@ -33,12 +33,6 @@ public class User implements Serializable {
 	}
 	public void setId(String id) {
 		this.id = id;
-	}
-	public String getUserType() {
-		return userType;
-	}
-	public void setUserType(String userType) {
-		this.userType = userType;
 	}
 	public String getUsername() {
 		return username;
