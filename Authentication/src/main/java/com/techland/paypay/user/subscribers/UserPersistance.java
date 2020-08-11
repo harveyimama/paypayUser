@@ -13,7 +13,7 @@ import com.techland.paypay.user.impl.UserState;
 import com.techland.paypay.user.persistence.User;
 import com.techland.paypay.user.persistence.UserRepository;
 @Component
-@TechLandSubscriber(events = {"MerchantUserAddedEvent"},isstate=true)
+@TechLandSubscriber(events = {"MerchantUserAddedEvent","CustomerUserAddedEvent","AdminUserAddedEvent"},isstate=true)
 public class UserPersistance  implements StateSubscriber {
 	@Autowired
 	private User user;

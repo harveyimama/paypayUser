@@ -35,7 +35,6 @@ public class UserState implements PayPayState {
 		this.id = id;
 	}
 
-	
 	public String getUsername() {
 		return username;
 	}
@@ -85,14 +84,16 @@ public class UserState implements PayPayState {
 	}
 
 	@Override
-	public  UserState addEvent(String event) 
-	{ 
+	public UserState addEvent(String event) {
 
 		try {
 			ObjectMapper mapper = new ObjectMapper();
 			JsonNode actualObj = mapper.readTree(event);
 
-			if (actualObj.get("class").asText().equals("MerchantUserAddedEvent")) {
+			if (actualObj.get("class").asText().equals("MerchantUserAddedEvent")
+					|| actualObj.get("class").asText().equals("CustomerUserAddedEvent")
+					|| actualObj.get("class").asText().equals("AdminUserAddedEvent")) {
+
 				this.setEmail(actualObj.get("email").asText());
 				this.setFullname(actualObj.get("fullname").asText());
 				this.setId(actualObj.get("id").asText());
@@ -105,15 +106,12 @@ public class UserState implements PayPayState {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-return this;
+		return this;
 
 	}
 
-
-
 	@Override
-	public  UserState getState(String state) 
-	{ 
+	public UserState getState(String state) {
 
 		try {
 			ObjectMapper mapper = new ObjectMapper();
@@ -140,7 +138,5 @@ return this;
 				+ password + "\", \"email\":\"" + email + "\", \"fullname\":\"" + fullname + "\", \"role\":\"" + role
 				+ "\", \"status\":\"" + status + "\"}";
 	}
-
-	
 
 }

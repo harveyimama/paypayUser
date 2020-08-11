@@ -9,11 +9,11 @@
 		<version>2.2.4.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.techland.paypay.user</groupId>
-	<artifactId>paypayUser</artifactId>
+	<groupId>com.D.public.erica.authentication</groupId>
+	<artifactId>Authentication</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>paypayUser</name>
-	<description>user microservice for paypay app</description>
+	<description>Authentication  microservice for Erica  app</description>
 
 	<properties>
 		<java.version>1.8</java.version>
